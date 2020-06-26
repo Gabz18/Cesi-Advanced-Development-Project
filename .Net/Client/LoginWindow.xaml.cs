@@ -29,14 +29,16 @@ namespace Client
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.toLogin(this.username.Text, this.password.Text);
+            this.toLogin(this.username.Text, this.password.Password);
 
-            if(this.authentified == true) {
+            if (this.authentified == true)
+            {
                 MainWindow main = new MainWindow();
                 App.Current.MainWindow = main;
                 this.Close();
                 main.Show();
-            } else
+            }
+            else
             {
                 MessageBox.Show("Your login/password is incorrect");
             }

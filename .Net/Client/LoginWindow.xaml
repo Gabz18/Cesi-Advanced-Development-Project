@@ -6,20 +6,26 @@
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
         Title="Decryptor Launcher" Height="450" Width="800" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
-    
-    
-    
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Fonts/hacked.ttf #hacked"/>
+        </Style>
+
+    </Window.Resources>
+
     <Grid Background="AliceBlue">
         <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="235, 100,0,0"><Run Text="Username"/></TextBlock>
-                <TextBox Margin="9,100,0,0" Width="240" x:Name="username"/>
+            <TextBlock x:Name="TitleDesign" FontSize="92" Margin="199,50,0,0" Text="DECRYPTOR"/>
+            <StackPanel Orientation="Horizontal" Margin="0,30,0,5">
+                <TextBlock Margin="235,0,0,0"><Run Text="Username"/></TextBlock>
+                <TextBox Margin="9,0,0,0" Width="240" x:Name="username"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="237,0,0,20"><Run Text="Password"/></TextBlock>
-                <TextBox Margin="10,0,0,20" Width="240" x:Name="password"/>
+                <TextBlock Margin="232,0,0,20"><Run Text="Password"/></TextBlock>
+                <PasswordBox Margin="10,0,0,20" Width="240" x:Name="password"/>
             </StackPanel>
-            <Button Click="Button_Click" Margin="310,0,276,0" Content="Button"/>
+            <Button Click="Button_Click" Margin="310,0,286,0" Content="Login"/>
         </StackPanel>
     </Grid>
 </Window>
