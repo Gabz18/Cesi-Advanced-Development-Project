@@ -56,10 +56,6 @@ namespace Client
             } else
             {
                 ProgressBar.Visibility = Visibility.Visible;
-                for(int i =0; i<100; i++)
-                {
-                    Thread.Sleep(100);
-                }
             }
         }
     }
