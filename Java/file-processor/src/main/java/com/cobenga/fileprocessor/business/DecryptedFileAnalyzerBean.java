@@ -5,6 +5,9 @@ import com.cobenga.fileprocessor.dao.WordDao;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+/**
+ * @author Gabz18
+ */
 @Stateless
 public class DecryptedFileAnalyzerBean implements DecryptedFileAnalyzer {
 
@@ -13,6 +16,9 @@ public class DecryptedFileAnalyzerBean implements DecryptedFileAnalyzer {
     @EJB
     private WordDao wordDao;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double findTextValidityConfidence(String text) {
         int i = 0;

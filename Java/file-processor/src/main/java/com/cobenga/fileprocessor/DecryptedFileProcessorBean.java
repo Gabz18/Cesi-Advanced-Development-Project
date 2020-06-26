@@ -13,6 +13,9 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
+/**
+ * @author Gabz18
+ */
 @MessageDriven(
         activationConfig = {
                 @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/decryptedFileQueue"),
@@ -36,6 +39,13 @@ public class DecryptedFileProcessorBean implements MessageListener {
     @EJB
     private MiddlewareClient middlewareClient;
 
+    /**
+     * Processes a JMS message holding a decrypted file and checks whether or not this file contains an sufficient percentage
+     * of french words. If so, an email is sent to the user requesting this file processing and a SOAP message is sent to
+     * the Information System middleware in order to notify it that the correct decryption code has been found.
+     *
+     * @param message The JMS {@link javax.jms.TextMessage}.
+     */
     @Override
     public void onMessage(Message message) {
         try {
@@ -43,6 +53,7 @@ public class DecryptedFileProcessorBean implements MessageListener {
             String code = message.getStringProperty("code");
             String fileName = message.getStringProperty("fileName");
             String userEmail = message.getStringProperty("userEmail");
+            String fileUuid = message.getStringProperty("fileUuid");
 
             if (decryptedFileAnalyzer.findTextValidityConfidence(messageBody) >= MIN_CONFIDENCE_LEVEL) {
                 String secretInfo = secretInformationSeeker.findSecretInformation(messageBody);
