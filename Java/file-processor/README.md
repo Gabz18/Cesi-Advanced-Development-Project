@@ -1,4 +1,4 @@
-# Jakarta EE Webapp / EJB boilerplate
+# File Processor
 
 Simple Jakarta EE Webapp x EJB project boilerplate code.
 
