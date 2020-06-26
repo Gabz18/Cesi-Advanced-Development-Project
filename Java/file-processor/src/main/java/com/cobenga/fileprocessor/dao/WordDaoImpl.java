@@ -1,4 +1,12 @@
 package com.cobenga.fileprocessor.dao;
 
-public class WordDaoImpl {
+import javax.ejb.Stateless;
+
+@Stateless
+public class WordDaoImpl implements WordDao {
+
+    @Override
+    public boolean wordExists(String word) {
+        return false;
+    }
 }
