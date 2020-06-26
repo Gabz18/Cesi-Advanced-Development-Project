@@ -50,11 +50,5 @@
     <Compile Include="ImplUserNameValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WCF_Contract\WCF_Contract.csproj">
-      <Project>{c73ba7c0-2431-4372-a7c4-37178d2eb2fe}</Project>
-      <Name>WCF_Contract</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

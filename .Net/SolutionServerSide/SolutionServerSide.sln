@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFServer", "WCFServer\WCFS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCorentin", "TestCorentin\TestCorentin.csproj", "{B2C4FBA4-BE6F-4963-89D1-7FF9ED600024}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerNoSecure", "ServerNoSecure\ServerNoSecure.csproj", "{D96D498B-A358-4C56-9302-E2FF37CD14FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientNoSecure", "ClientNoSecure\ClientNoSecure.csproj", "{C690107C-AC31-44FE-A591-5A4E3D37B839}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{B2C4FBA4-BE6F-4963-89D1-7FF9ED600024}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2C4FBA4-BE6F-4963-89D1-7FF9ED600024}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2C4FBA4-BE6F-4963-89D1-7FF9ED600024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D96D498B-A358-4C56-9302-E2FF37CD14FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D96D498B-A358-4C56-9302-E2FF37CD14FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D96D498B-A358-4C56-9302-E2FF37CD14FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D96D498B-A358-4C56-9302-E2FF37CD14FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C690107C-AC31-44FE-A591-5A4E3D37B839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C690107C-AC31-44FE-A591-5A4E3D37B839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C690107C-AC31-44FE-A591-5A4E3D37B839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C690107C-AC31-44FE-A591-5A4E3D37B839}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

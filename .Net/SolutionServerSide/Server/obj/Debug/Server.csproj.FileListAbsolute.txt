@@ -6,7 +6,6 @@ C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionSer
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Server\obj\Debug\Server.exe
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Server\obj\Debug\Server.pdb
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Server\bin\Debug\WCF_Contract.dll
-C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Server\bin\Debug\WCF_Contract.pdb
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Server\bin\Debug\WCF_Contract.dll.config
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Server\obj\Debug\Server.csproj.CopyComplete
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Server\bin\Debug\Middleware.dll

@@ -1,0 +1,13 @@
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\ServerNoSecure.exe.config
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\ServerNoSecure.exe
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\ServerNoSecure.pdb
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\WCF_Contract.dll
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\WCF_Contract.pdb
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\WCF_Contract.dll.config
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\obj\Debug\ServerNoSecure.csprojAssemblyReference.cache
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\obj\Debug\ServerNoSecure.csproj.CoreCompileInputs.cache
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\obj\Debug\ServerNoSecure.csproj.CopyComplete
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\obj\Debug\ServerNoSecure.exe
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\obj\Debug\ServerNoSecure.pdb
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\Middleware.dll
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\Middleware.pdb

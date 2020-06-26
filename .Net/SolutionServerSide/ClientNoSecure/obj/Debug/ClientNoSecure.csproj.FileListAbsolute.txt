@@ -1,0 +1,6 @@
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ClientNoSecure\bin\Debug\ClientNoSecure.exe.config
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ClientNoSecure\bin\Debug\ClientNoSecure.exe
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ClientNoSecure\bin\Debug\ClientNoSecure.pdb
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ClientNoSecure\obj\Debug\ClientNoSecure.csproj.CoreCompileInputs.cache
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ClientNoSecure\obj\Debug\ClientNoSecure.exe
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ClientNoSecure\obj\Debug\ClientNoSecure.pdb
