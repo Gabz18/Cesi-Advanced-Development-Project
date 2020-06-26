@@ -39,6 +39,9 @@ public class DecryptedFileProcessorBean implements MessageListener {
     @EJB
     private MiddlewareClient middlewareClient;
 
+    @EJB
+    private ProcessedFilesUuidCache uuidsCache;
+
     /**
      * Processes a JMS message holding a decrypted file and checks whether or not this file contains an sufficient percentage
      * of french words. If so, an email is sent to the user requesting this file processing and a SOAP message is sent to
@@ -49,18 +52,24 @@ public class DecryptedFileProcessorBean implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
+            String fileUuid = message.getStringProperty("fileUuid");
+            if (uuidsCache.hasFileAlreadyBeenProcessed(fileUuid)) {
+                return;
+            }
             String messageBody = message.getBody(String.class);
             String code = message.getStringProperty("code");
             String fileName = message.getStringProperty("fileName");
             String userEmail = message.getStringProperty("userEmail");
-            String fileUuid = message.getStringProperty("fileUuid");
 
             if (decryptedFileAnalyzer.findTextValidityConfidence(messageBody) >= MIN_CONFIDENCE_LEVEL) {
+
+                uuidsCache.addProcessedFileUuid(fileUuid);
+
                 String secretInfo = secretInformationSeeker.findSecretInformation(messageBody);
                 middlewareClient.notifyMiddlewareSecretInformationHasBeenFound(
                         secretInfo,
                         code,
-                        fileName
+                        fileUuid
                 );
 
                 mailService.sendMail(userEmail, MAIL_SUBJECT, buildMailBody(fileName, code, secretInfo));
