@@ -8,3 +8,13 @@ C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionSer
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\obj\Debug\TestCorentin.csproj.CopyComplete
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\obj\Debug\TestCorentin.exe
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\obj\Debug\TestCorentin.pdb
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\bin\Debug\TestCorentin.exe.config
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\bin\Debug\TestCorentin.exe
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\bin\Debug\TestCorentin.pdb
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\bin\Debug\Middleware.dll
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\bin\Debug\Middleware.pdb
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\obj\Debug\TestCorentin.csprojAssemblyReference.cache
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\obj\Debug\TestCorentin.csproj.CoreCompileInputs.cache
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\obj\Debug\TestCorentin.csproj.CopyComplete
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\obj\Debug\TestCorentin.exe
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\obj\Debug\TestCorentin.pdb

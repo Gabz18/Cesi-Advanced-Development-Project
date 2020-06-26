@@ -45,5 +45,14 @@ namespace Middleware
             }
             return combinations;
         }
+ 
+
+        public void tryEachCode (string documentToDecrypt, List<string> possibleKeys, Decryptor decryptor)
+        {
+            foreach (string key in possibleKeys) {
+                string result = decryptor.applyXOR(key, documentToDecrypt);
+                //Faire quelque chose avec ton result bg
+            }
+        }
     }
 }

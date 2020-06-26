@@ -27,7 +27,12 @@ namespace TestCorentin
             //test getPossibleKeys and display the number of combination possible
             Console.WriteLine(myDecryptorManager.getPossiblesKeys(alphabet).Count);
 
-            Console.WriteLine("taper une touche pour quitter...");
+            Decryptor decryptor = new Decryptor();
+            var result = decryptor.applyXOR("Clef", "Ceci est un texte");
+
+            Console.WriteLine(result);
+
+            Console.WriteLine("Appuyer sur entrer pour quitter...");
             Console.ReadLine();
         }
     }
