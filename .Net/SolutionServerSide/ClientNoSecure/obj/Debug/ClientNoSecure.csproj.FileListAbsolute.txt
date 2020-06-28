@@ -4,3 +4,4 @@ C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionSer
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ClientNoSecure\obj\Debug\ClientNoSecure.csproj.CoreCompileInputs.cache
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ClientNoSecure\obj\Debug\ClientNoSecure.exe
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ClientNoSecure\obj\Debug\ClientNoSecure.pdb
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ClientNoSecure\obj\Debug\ClientNoSecure.csprojAssemblyReference.cache

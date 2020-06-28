@@ -13,12 +13,21 @@ namespace ClientNoSecure
     {
         static void Main(string[] args)
         {
+            string clientName;
+            
+            Console.WriteLine("Enter a client name:");
+            clientName = Console.ReadLine();
+            
             IService1 proxy = new Service1Client();
+
+            proxy.setClientName(clientName);
 
             for(int i = 0; i < 4; i += 1)
             {
-                proxy.simpleFunction("Benjamin");
+                proxy.simpleFunction();
             }
+
+        
 
             Console.WriteLine("Tap Enter to finish the process");
             Console.ReadLine();

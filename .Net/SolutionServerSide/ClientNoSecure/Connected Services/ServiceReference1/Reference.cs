@@ -182,10 +182,16 @@ namespace ClientNoSecure.ServiceReference1 {
         System.Threading.Tasks.Task<string> m_serviceAsync(ClientNoSecure.ServiceReference1.STG msg);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/simpleFunction", ReplyAction="http://tempuri.org/IService1/simpleFunctionResponse")]
-        void simpleFunction(string clientName);
+        void simpleFunction();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/simpleFunction", ReplyAction="http://tempuri.org/IService1/simpleFunctionResponse")]
-        System.Threading.Tasks.Task simpleFunctionAsync(string clientName);
+        System.Threading.Tasks.Task simpleFunctionAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/setClientName", ReplyAction="http://tempuri.org/IService1/setClientNameResponse")]
+        void setClientName(string clientName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/setClientName", ReplyAction="http://tempuri.org/IService1/setClientNameResponse")]
+        System.Threading.Tasks.Task setClientNameAsync(string clientName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -223,12 +229,20 @@ namespace ClientNoSecure.ServiceReference1 {
             return base.Channel.m_serviceAsync(msg);
         }
         
-        public void simpleFunction(string clientName) {
-            base.Channel.simpleFunction(clientName);
+        public void simpleFunction() {
+            base.Channel.simpleFunction();
         }
         
-        public System.Threading.Tasks.Task simpleFunctionAsync(string clientName) {
-            return base.Channel.simpleFunctionAsync(clientName);
+        public System.Threading.Tasks.Task simpleFunctionAsync() {
+            return base.Channel.simpleFunctionAsync();
+        }
+        
+        public void setClientName(string clientName) {
+            base.Channel.setClientName(clientName);
+        }
+        
+        public System.Threading.Tasks.Task setClientNameAsync(string clientName) {
+            return base.Channel.setClientNameAsync(clientName);
         }
     }
 }
