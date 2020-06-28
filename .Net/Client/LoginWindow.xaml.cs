@@ -48,7 +48,6 @@ namespace Client
         private void toLogin(string username, string password)
         {
             //add connection to middleware through WCF
-            MessageBox.Show(username + " " + password);
             this.authentified = true;
         }
     }

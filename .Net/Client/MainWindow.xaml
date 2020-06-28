@@ -16,11 +16,15 @@
     </Window.Resources>
 
     <Grid Background="AliceBlue">
-        <StackPanel Margin="0,10,0,0">
-            <Button Name="btnOpenFile" Click="btnOpenFile_Click" Margin="270,0" Width="100">Open file</Button>
-            <StackPanel x:Name="FilesPanel" Margin="0, 20,650, 0"/>
-            <Button x:Name="decryptFileButton" Style="{StaticResource HackedFont}" Content="DECRYPT" Width="120" Click="decryptFileButton_Click"/>
+        <StackPanel Name="MainPanel">
+            <TextBlock  HorizontalAlignment="Center" Margin="0,10,0,0" FontFamily="Britannic Bold" FontSize="16">ADD FILES TO DECRYPT :</TextBlock>
+            <StackPanel x:Name="ChosenFilesPanel" Margin="0,20" HorizontalAlignment="Left"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnOpenFile" Click="btnOpenFile_Click" Margin="0,0,10,0" Width="100" Content="Open file"/>
+                <Button x:Name="decryptFileButton" Style="{StaticResource HackedFont}" Content="DECRYPT" Width="120" Click="decryptFileButton_Click"/>
+            </StackPanel>
             <ProgressBar Minimum="0" Maximum="100" IsIndeterminate="True" Height="12" Width="180" Margin="0,20,0,0" Visibility="Hidden" Name="ProgressBar"/>
+            <StackPanel x:Name="DecryptedFilesPanel" Margin="0, 20, 0, 0" HorizontalAlignment="Left"/>
         </StackPanel>
     </Grid>
 </Window>

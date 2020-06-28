@@ -43,8 +43,9 @@ namespace Client
             {
                 EncryptedFile encryptedFile = new EncryptedFile(openFileDialog.SafeFileName, File.ReadAllText(openFileDialog.FileName));
                 encryptedFilesView.Items.Add(encryptedFile.name);
+                encryptedFilesView.Width = 200;
                 this.encryptedFiles.Add(encryptedFile);
-                FilesPanel.Children.Add(encryptedFilesView);
+                ChosenFilesPanel.Children.Add(encryptedFilesView);
             }
 
         }
@@ -56,7 +57,56 @@ namespace Client
             } else
             {
                 ProgressBar.Visibility = Visibility.Visible;
+
+                //Partie simulation de travail 
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += worker_doWork;
+                worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+                worker.RunWorkerAsync(10000);
+                //Fin de cette partie
             }
+        }
+
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ProgressBar.Visibility = Visibility.Hidden;
+            foreach (EncryptedFile file in encryptedFiles)
+            {
+                StackPanel stack = new StackPanel();
+                stack.Orientation = Orientation.Horizontal;
+                Button downloadButton = new Button();
+                downloadButton.Content = "Download";
+                downloadButton.Click += btnSaveFile_Click;
+                downloadButton.Tag = file;
+                ListView decryptedFilesView = new ListView();
+                decryptedFilesView.Width = 200;
+
+                Thickness m = decryptedFilesView.Margin;
+                m.Right = 10;
+                decryptedFilesView.Margin = m;
+
+                decryptedFilesView.Items.Add(file.name);
+                stack.Children.Add(decryptedFilesView);
+                stack.Children.Add(downloadButton);
+                DecryptedFilesPanel.Children.Add(stack);
+                btnOpenFile.Visibility = Visibility.Collapsed;
+
+            }
+        }
+
+        private void worker_doWork(object sender, DoWorkEventArgs e)
+        {
+            Thread.Sleep(5000);
+        }
+
+
+        private void btnSaveFile_Click(object sender, RoutedEventArgs e)
+        {
+            var receivedFile = ((Button)sender).Tag;
+            EncryptedFile file = (EncryptedFile)receivedFile;
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+                File.WriteAllText(saveFileDialog.FileName, file.content);
         }
     }
 }

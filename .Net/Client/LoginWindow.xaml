@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="Decryptor Launcher" Height="450" Width="800" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Decryptor Launcher" Height="450" Width="800" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style TargetType="TextBlock">
@@ -15,17 +15,17 @@
     </Window.Resources>
 
     <Grid Background="AliceBlue">
-        <StackPanel>
-            <TextBlock x:Name="TitleDesign" FontSize="92" Margin="199,50,0,0" Text="DECRYPTOR"/>
-            <StackPanel Orientation="Horizontal" Margin="0,30,0,5">
-                <TextBlock Margin="235,0,0,0"><Run Text="Username"/></TextBlock>
-                <TextBox Margin="9,0,0,0" Width="240" x:Name="username"/>
+        <StackPanel VerticalAlignment="Center"  HorizontalAlignment="Center">
+            <TextBlock x:Name="TitleDesign" FontSize="92" Text="DECRYPTOR"/>
+            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" Margin="0,30,0,5">
+                <TextBlock Margin="-1,0,0,0"><Run Text="Username"/></TextBlock>
+                <TextBox Margin="10,0,0,0" Width="240" x:Name="username"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="232,0,0,20"><Run Text="Password"/></TextBlock>
+            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                <TextBlock Margin="-2,0,0,20"><Run Text="Password"/></TextBlock>
                 <PasswordBox Margin="10,0,0,20" Width="240" x:Name="password"/>
             </StackPanel>
-            <Button Click="Button_Click" Margin="310,0,286,0" Content="Login"/>
+            <Button Click="Button_Click" Width="100" Content="Login"/>
         </StackPanel>
     </Grid>
 </Window>
