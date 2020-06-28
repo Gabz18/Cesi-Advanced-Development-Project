@@ -56,6 +56,7 @@ namespace Client
                 MessageBox.Show("On ne peut pas décrypter si il n'y a aucun fichier à traiter !");
             } else
             {
+                decryptFileButton.IsEnabled = false;
                 ProgressBar.Visibility = Visibility.Visible;
 
                 //Partie simulation de travail 
