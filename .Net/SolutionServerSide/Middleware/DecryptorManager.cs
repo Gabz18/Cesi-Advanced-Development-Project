@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Middleware
@@ -38,12 +39,47 @@ namespace Middleware
                     {
                         for (int l = 0; l < characters.Count; l += 1)
                         {
-                            combinations.Add(characters[j] + characters[j] + characters[k] + characters[l]);
+                            combinations.Add(characters[i] + characters[j] + characters[k] + characters[l]);
                         }
                     }
                 }
             }
             return combinations;
+        }
+
+        public void tryEachCode(string documentToDecrypt, List<string> possibleKeys)
+        {
+            foreach (string key in possibleKeys)
+            {
+                string result = new Decryptor().applyXOR(key, documentToDecrypt);
+                Console.WriteLine("Déchiffrement avec cette clé: {0}, voici le résultat: {1}", key, result);
+            }
+        }
+
+        public void tryEachCodeTPL(string documentToDecrypt, List<string> possiblekeys)
+        {
+            var rnd = new Random();
+
+            Parallel.ForEach(possiblekeys, (i, state) =>
+            {
+
+                //if (i == "JVCF")
+                //{
+                //    state.Stop();
+                //    return;
+                //}
+
+                if (state.IsStopped)
+                {
+                    return;
+                }
+                else
+                {
+                    string result = new Decryptor().applyXOR(i, documentToDecrypt);
+                    Console.WriteLine("Déchiffrement avec cette clé: {0} et ce Thread: {2}, voici le résultat: {1}", i, result, Thread.CurrentThread.ManagedThreadId.ToString());
+                }
+                
+            });
         }
     }
 }

@@ -29,26 +29,15 @@ namespace WCF_Contract
             return "salut bg";
         }
 
-        public void setClientName(string clientName)
-        {
-            this.clientInstanceName = clientName;
-            Console.WriteLine("le client de cette instance est: {0}", clientName);
-        }
-
-
-        public void simpleFunction()
+        public void testConcurrencyWithTPL()
         {
             DecryptorManager myDecryptorManager = new DecryptorManager();
+
+            //test getAlphabetCharacter and display result
             List<string> alphabet = myDecryptorManager.getAlphabetCharacter();
+            List<string> keys = myDecryptorManager.getPossiblesKeys(alphabet);
 
-            Console.WriteLine("instance numéro: {0}, thread numéro: {1}, client name: {2}", instanceCount.ToString(), Thread.CurrentThread.ManagedThreadId.ToString(), clientInstanceName);
-
-            //foreach (string character in alphabet)
-            //{
-            //    Thread.Sleep(5000);
-            //    Console.WriteLine("instance numéro: {0}, thread numéro: {1}, client name: {2}", instanceCount.ToString(), Thread.CurrentThread.ManagedThreadId.ToString(), clientInstanceName);
-            //    Console.WriteLine(character);
-            //}
+            myDecryptorManager.tryEachCodeTPL("0?z*/3)y/4z-?\".<z.(±)z)07*6<", keys);
         }
 
 

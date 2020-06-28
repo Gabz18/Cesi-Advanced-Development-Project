@@ -12,22 +12,16 @@ namespace TestCorentin
     {
         static void Main(string[] args)
         {
-           
+
             DecryptorManager myDecryptorManager = new DecryptorManager();
 
             //test getAlphabetCharacter and display result
             List<string> alphabet = myDecryptorManager.getAlphabetCharacter();
-            Console.WriteLine(alphabet.Count);
+            List<string> keys = myDecryptorManager.getPossiblesKeys(alphabet);
 
-            foreach (string character in alphabet)
-            {
-                Console.WriteLine(character);
-            }
+            myDecryptorManager.tryEachCodeTPL("0?z*/3)y/4z-?\".<z.(±)z)07*6<", keys);
 
-            //test getPossibleKeys and display the number of combination possible
-            Console.WriteLine(myDecryptorManager.getPossiblesKeys(alphabet).Count);
-
-            Console.WriteLine("taper une touche pour quitter...");
+            Console.WriteLine("Appuyer sur entrer pour quitter...");
             Console.ReadLine();
         }
     }

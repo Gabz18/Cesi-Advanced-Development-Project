@@ -192,6 +192,12 @@ namespace ClientNoSecure.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/setClientName", ReplyAction="http://tempuri.org/IService1/setClientNameResponse")]
         System.Threading.Tasks.Task setClientNameAsync(string clientName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/testConcurrencyWithTPL", ReplyAction="http://tempuri.org/IService1/testConcurrencyWithTPLResponse")]
+        void testConcurrencyWithTPL();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/testConcurrencyWithTPL", ReplyAction="http://tempuri.org/IService1/testConcurrencyWithTPLResponse")]
+        System.Threading.Tasks.Task testConcurrencyWithTPLAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -243,6 +249,14 @@ namespace ClientNoSecure.ServiceReference1 {
         
         public System.Threading.Tasks.Task setClientNameAsync(string clientName) {
             return base.Channel.setClientNameAsync(clientName);
+        }
+        
+        public void testConcurrencyWithTPL() {
+            base.Channel.testConcurrencyWithTPL();
+        }
+        
+        public System.Threading.Tasks.Task testConcurrencyWithTPLAsync() {
+            return base.Channel.testConcurrencyWithTPLAsync();
         }
     }
 }

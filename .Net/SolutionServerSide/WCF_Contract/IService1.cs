@@ -17,10 +17,7 @@ namespace WCF_Contract
         string m_service(STG msg);
 
         [OperationContract]
-        void simpleFunction();
-
-        [OperationContract]
-        void setClientName(string clientName);
+        void testConcurrencyWithTPL();
     }
 
 

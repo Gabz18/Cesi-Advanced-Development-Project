@@ -20,12 +20,12 @@ namespace ClientNoSecure
             
             IService1 proxy = new Service1Client();
 
-            proxy.setClientName(clientName);
+            proxy.testConcurrencyWithTPL();
 
-            for(int i = 0; i < 4; i += 1)
-            {
-                proxy.simpleFunction();
-            }
+            //for(int i = 0; i < 4; i += 1)
+            //{
+            //    proxy.simpleFunction();
+            //}
 
         
 

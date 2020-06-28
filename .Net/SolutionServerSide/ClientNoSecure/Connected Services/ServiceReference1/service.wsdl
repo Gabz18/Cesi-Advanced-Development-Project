@@ -59,6 +59,12 @@
   <wsdl:message name="IService1_setClientName_OutputMessage">
     <wsdl:part name="parameters" element="tns:setClientNameResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_testConcurrencyWithTPL_InputMessage">
+    <wsdl:part name="parameters" element="tns:testConcurrencyWithTPL" />
+  </wsdl:message>
+  <wsdl:message name="IService1_testConcurrencyWithTPL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:testConcurrencyWithTPLResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="m_service">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/m_service" message="tns:IService1_m_service_InputMessage" />
@@ -71,6 +77,10 @@
     <wsdl:operation name="setClientName">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/setClientName" message="tns:IService1_setClientName_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/setClientNameResponse" message="tns:IService1_setClientName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="testConcurrencyWithTPL">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/testConcurrencyWithTPL" message="tns:IService1_testConcurrencyWithTPL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/testConcurrencyWithTPLResponse" message="tns:IService1_testConcurrencyWithTPL_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IService1" type="tns:IService1">
@@ -97,6 +107,15 @@
     </wsdl:operation>
     <wsdl:operation name="setClientName">
       <soap12:operation soapAction="http://tempuri.org/IService1/setClientName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="testConcurrencyWithTPL">
+      <soap12:operation soapAction="http://tempuri.org/IService1/testConcurrencyWithTPL" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
