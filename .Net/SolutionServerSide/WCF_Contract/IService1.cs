@@ -14,10 +14,8 @@ namespace WCF_Contract
     public interface IService1
     {
         [OperationContract]
-        string m_service(STG msg);
+        STG m_service(STG msg);
 
-        [OperationContract]
-        void testConcurrencyWithTPL();
     }
 
 

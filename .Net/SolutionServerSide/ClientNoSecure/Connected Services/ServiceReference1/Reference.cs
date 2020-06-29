@@ -176,22 +176,10 @@ namespace ClientNoSecure.ServiceReference1 {
     public interface IService1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/m_service", ReplyAction="http://tempuri.org/IService1/m_serviceResponse")]
-        string m_service(ClientNoSecure.ServiceReference1.STG msg);
+        ClientNoSecure.ServiceReference1.STG m_service(ClientNoSecure.ServiceReference1.STG msg);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/m_service", ReplyAction="http://tempuri.org/IService1/m_serviceResponse")]
-        System.Threading.Tasks.Task<string> m_serviceAsync(ClientNoSecure.ServiceReference1.STG msg);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/simpleFunction", ReplyAction="http://tempuri.org/IService1/simpleFunctionResponse")]
-        void simpleFunction();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/simpleFunction", ReplyAction="http://tempuri.org/IService1/simpleFunctionResponse")]
-        System.Threading.Tasks.Task simpleFunctionAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/setClientName", ReplyAction="http://tempuri.org/IService1/setClientNameResponse")]
-        void setClientName(string clientName);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/setClientName", ReplyAction="http://tempuri.org/IService1/setClientNameResponse")]
-        System.Threading.Tasks.Task setClientNameAsync(string clientName);
+        System.Threading.Tasks.Task<ClientNoSecure.ServiceReference1.STG> m_serviceAsync(ClientNoSecure.ServiceReference1.STG msg);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/testConcurrencyWithTPL", ReplyAction="http://tempuri.org/IService1/testConcurrencyWithTPLResponse")]
         void testConcurrencyWithTPL();
@@ -227,28 +215,12 @@ namespace ClientNoSecure.ServiceReference1 {
                 base(binding, remoteAddress) {
         }
         
-        public string m_service(ClientNoSecure.ServiceReference1.STG msg) {
+        public ClientNoSecure.ServiceReference1.STG m_service(ClientNoSecure.ServiceReference1.STG msg) {
             return base.Channel.m_service(msg);
         }
         
-        public System.Threading.Tasks.Task<string> m_serviceAsync(ClientNoSecure.ServiceReference1.STG msg) {
+        public System.Threading.Tasks.Task<ClientNoSecure.ServiceReference1.STG> m_serviceAsync(ClientNoSecure.ServiceReference1.STG msg) {
             return base.Channel.m_serviceAsync(msg);
-        }
-        
-        public void simpleFunction() {
-            base.Channel.simpleFunction();
-        }
-        
-        public System.Threading.Tasks.Task simpleFunctionAsync() {
-            return base.Channel.simpleFunctionAsync();
-        }
-        
-        public void setClientName(string clientName) {
-            base.Channel.setClientName(clientName);
-        }
-        
-        public System.Threading.Tasks.Task setClientNameAsync(string clientName) {
-            return base.Channel.setClientNameAsync(clientName);
         }
         
         public void testConcurrencyWithTPL() {

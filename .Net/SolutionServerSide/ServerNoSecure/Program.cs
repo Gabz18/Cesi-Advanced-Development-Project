@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
 using WCF_Contract;
+using Middleware;
 
 namespace ServerNoSecure
 {
@@ -17,6 +18,8 @@ namespace ServerNoSecure
 
         static void ini_serv()
         {
+            DecryptorManagerContainer singletonDecryptorManager = DecryptorManagerContainer.Instance;
+
             ServiceHost host = new ServiceHost(typeof(Service1));
 
             host.Open();

@@ -8,3 +8,4 @@ C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionSer
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\WCF_Contract\bin\Debug\Middleware.dll
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\WCF_Contract\bin\Debug\Middleware.pdb
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\WCF_Contract\obj\Debug\WCF_Contract.csproj.CopyComplete
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\WCF_Contract\bin\Debug\Middleware.dll.config

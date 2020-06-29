@@ -4,11 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.ServiceModel;
+using System.Net.Http.Headers;
+using Middleware.ServiceReference1;
+using System.Linq.Expressions;
 
 namespace Middleware
 {
     public class DecryptorManager
     {
+        Sender mySender;
+        string address = "http://localhost:8755/Service";
+        IService2 client;
+
+
+        private ManualResetEvent eventDataReceived;
+        private string encryptedDocument;
+        private List<string> possibleKeys;
+        private string uuid;
+
+        private string correctCode;
+
+
+        private bool isStopped = false;
+
+        public DecryptorManager(string encrytedDocument)
+        {
+            this.encryptedDocument = encrytedDocument;
+            eventDataReceived = new ManualResetEvent(false);
+
+
+            possibleKeys = this.getPossiblesKeys(this.getAlphabetCharacter());
+
+
+            //WSDualHttpBinding binding = new WSDualHttpBinding();
+
+            //mySender = new Sender();
+            //DuplexChannelFactory<IService2> channelFactory = new DuplexChannelFactory<IService2>(new InstanceContext(mySender), binding, address);
+            //client = channelFactory.CreateChannel();
+        }
+
         /// <summary>
         /// This function is based on the ASCII table for characters. The number 65 corresponds to A in the ASCII table and 90 to Z.
         /// So for each number between 65 and 90 include, it will get the Hexadecimal code (char) and finally convert it into 
@@ -47,39 +82,56 @@ namespace Middleware
             return combinations;
         }
 
-        public void tryEachCode(string documentToDecrypt, List<string> possibleKeys)
+        public void tryEachCode()
         {
             foreach (string key in possibleKeys)
             {
-                string result = new Decryptor().applyXOR(key, documentToDecrypt);
+                string result = new Decryptor().applyXOR(key, encryptedDocument);
                 Console.WriteLine("Déchiffrement avec cette clé: {0}, voici le résultat: {1}", key, result);
             }
         }
 
-        public void tryEachCodeTPL(string documentToDecrypt, List<string> possiblekeys)
+        public object[] tryEachCodeTPL()
         {
-            var rnd = new Random();
-
-            Parallel.ForEach(possiblekeys, (i, state) =>
+            Parallel.ForEach(possibleKeys, (i, state) =>
             {
 
-                //if (i == "JVCF")
-                //{
-                //    state.Stop();
-                //    return;
-                //}
-
-                if (state.IsStopped)
+                if (isStopped)
                 {
                     return;
                 }
                 else
                 {
-                    string result = new Decryptor().applyXOR(i, documentToDecrypt);
+                    string result = new Decryptor().applyXOR(i, encryptedDocument);
                     Console.WriteLine("Déchiffrement avec cette clé: {0} et ce Thread: {2}, voici le résultat: {1}", i, result, Thread.CurrentThread.ManagedThreadId.ToString());
                 }
                 
             });
+
+            eventDataReceived.WaitOne();
+            
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            Console.WriteLine("je passe ici");
+
+            string decryptedDocument = new Decryptor().applyXOR(correctCode, encryptedDocument);
+
+            return new object[] { encryptedDocument, correctCode, decryptedDocument };
+        }
+
+
+        public void Send(string data)
+        {
+            client.verifyData(data);
+            mySender.ReceivedDataCompleted.WaitOne();
+        }
+
+
+        public void responseReceived(string code)
+        {
+            isStopped = true;
+            correctCode = code;
+            eventDataReceived.Set();
         }
     }
 }

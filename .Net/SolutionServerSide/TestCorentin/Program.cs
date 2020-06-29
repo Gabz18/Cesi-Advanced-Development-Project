@@ -12,14 +12,7 @@ namespace TestCorentin
     {
         static void Main(string[] args)
         {
-
-            DecryptorManager myDecryptorManager = new DecryptorManager();
-
-            //test getAlphabetCharacter and display result
-            List<string> alphabet = myDecryptorManager.getAlphabetCharacter();
-            List<string> keys = myDecryptorManager.getPossiblesKeys(alphabet);
-
-            myDecryptorManager.tryEachCodeTPL("0?z*/3)y/4z-?\".<z.(±)z)07*6<", keys);
+            Console.WriteLine(new Decryptor().applyXOR("JVFC", "8f7/.2c?8f3/#f0:¿%*+:"));
 
             Console.WriteLine("Appuyer sur entrer pour quitter...");
             Console.ReadLine();

@@ -16,34 +16,52 @@ namespace WCF_Contract
     public class Service1 : IService1, IDisposable
     {
         public int instanceCount;
-        string clientInstanceName;
+        DecryptorManagerContainer decryptorManagerContainer;
 
-        Service1()
+        public Service1()
         {
             instanceCount++;
+            decryptorManagerContainer = DecryptorManagerContainer.Instance;
             Console.WriteLine("Une Instance de service est créee");
         }
 
-        public string m_service(STG msg)
+        public STG m_service(STG msg)
         {
-            return "salut bg";
+            STG messageResponse;
+
+            switch (msg.OperationName)
+            {
+                case ("Decryption"):
+
+                    DecryptorManager myDecryptorManager = new DecryptorManager((string)msg.Data[0]);
+                    decryptorManagerContainer.setElementDictionnary("benjamin", myDecryptorManager);
+
+                    object[] response = myDecryptorManager.tryEachCodeTPL();
+                    return createMessageSTG("Response", response);
+                    //break;
+
+
+                 case ("StopDecryption"):
+                    DecryptorManager decryptorManager = decryptorManagerContainer.getElementDictionary((string)msg.Data[0]);
+                    decryptorManager.responseReceived((string)msg.Data[1]);
+                    
+                    break;
+            }
+            return msg;
         }
 
-        public void testConcurrencyWithTPL()
+        private STG createMessageSTG(string OperationName, object[] data)
         {
-            DecryptorManager myDecryptorManager = new DecryptorManager();
+            STG message = new STG();
+            message.OperationName = OperationName;
+            message.Data = data;
 
-            //test getAlphabetCharacter and display result
-            List<string> alphabet = myDecryptorManager.getAlphabetCharacter();
-            List<string> keys = myDecryptorManager.getPossiblesKeys(alphabet);
-
-            myDecryptorManager.tryEachCodeTPL("0?z*/3)y/4z-?\".<z.(±)z)07*6<", keys);
+            return message;
         }
-
 
         public void Dispose()
         {
-            Console.WriteLine("L'instance de client: {0} est fermée", clientInstanceName);
+            Console.WriteLine("L'instance de client est fermée");
         }
     }
 }

@@ -8,3 +8,4 @@ C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionSer
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\obj\Debug\TestCorentin.csproj.CopyComplete
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\obj\Debug\TestCorentin.exe
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\obj\Debug\TestCorentin.pdb
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\TestCorentin\bin\Debug\Middleware.dll.config

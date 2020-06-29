@@ -11,30 +11,8 @@
   <xs:element name="m_serviceResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="m_serviceResult" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WCF_Contract" minOccurs="0" name="m_serviceResult" nillable="true" type="q2:STG" />
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="simpleFunction">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="simpleFunctionResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="setClientName">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="clientName" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="setClientNameResponse">
-    <xs:complexType>
-      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="testConcurrencyWithTPL">
