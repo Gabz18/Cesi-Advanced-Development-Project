@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="5a019b0c-a8ac-435f-bc96-d0d7f7920da0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="6ef54923-7c5a-43cd-bd39-e2dc8ce043e5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,9 +22,10 @@
     <MetadataSource Address="http://localhost:8755/?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Service2.wsdl" MetadataType="Wsdl" ID="5a526450-4173-49c5-87c2-49a747fd8de4" SourceId="1" SourceUrl="http://localhost:8755/?wsdl" />
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="b324b9df-1f53-4b4a-bc1f-7349488c79b5" SourceId="1" SourceUrl="http://localhost:8755/?xsd=xsd0" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="c3efbde5-3693-473e-a002-be7136171f97" SourceId="1" SourceUrl="http://localhost:8755/?xsd=xsd1" />
+    <MetadataFile FileName="Service2.wsdl" MetadataType="Wsdl" ID="cfee5606-9565-458f-b946-bcb5311b3de9" SourceId="1" SourceUrl="http://localhost:8755/?wsdl" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="c824748f-6743-4475-8835-981cdc382417" SourceId="1" SourceUrl="http://localhost:8755/?xsd=xsd0" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="b7b6eea8-b5b8-4175-bb5d-18524a283c5c" SourceId="1" SourceUrl="http://localhost:8755/?xsd=xsd2" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="c2289094-d797-4dae-8d44-2ac6ee97b79f" SourceId="1" SourceUrl="http://localhost:8755/?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

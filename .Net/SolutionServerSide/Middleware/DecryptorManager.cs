@@ -13,15 +13,12 @@ namespace Middleware
 {
     public class DecryptorManager
     {
-        Sender mySender;
-        string address = "http://localhost:8755/Service";
-        IService2 client;
-
-
+        
         private ManualResetEvent eventDataReceived;
         private string encryptedDocument;
         private List<string> possibleKeys;
-        private string uuid;
+        private string decryptorManagerGUID;
+        private Sender sender;
 
         private string correctCode;
 
@@ -32,16 +29,10 @@ namespace Middleware
         {
             this.encryptedDocument = encrytedDocument;
             eventDataReceived = new ManualResetEvent(false);
+            sender = Sender.Instance;
 
-
+            decryptorManagerGUID = Guid.NewGuid().ToString();
             possibleKeys = this.getPossiblesKeys(this.getAlphabetCharacter());
-
-
-            //WSDualHttpBinding binding = new WSDualHttpBinding();
-
-            //mySender = new Sender();
-            //DuplexChannelFactory<IService2> channelFactory = new DuplexChannelFactory<IService2>(new InstanceContext(mySender), binding, address);
-            //client = channelFactory.CreateChannel();
         }
 
         /// <summary>
@@ -122,8 +113,7 @@ namespace Middleware
 
         public void Send(string data)
         {
-            client.verifyData(data);
-            mySender.ReceivedDataCompleted.WaitOne();
+
         }
 
 

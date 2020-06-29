@@ -18,7 +18,7 @@ namespace ServerNoSecure
 
         static void ini_serv()
         {
-            DecryptorManagerContainer singletonDecryptorManager = DecryptorManagerContainer.Instance;
+            //DecryptorManagerContainer.Instance;
 
             ServiceHost host = new ServiceHost(typeof(Service1));
 
