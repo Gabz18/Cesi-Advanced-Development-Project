@@ -21,5 +21,10 @@ namespace Client
             this.decryptionKey = decryptionKey;
             this.secretInformation = secretInformation;
         }
+
+        public string Name { get =>  name; set => name = value; }
+        public string Content { get => content; set => content = value; }
+        public string DecryptionKey { get => decryptionKey; set => decryptionKey = value; }
+        public string SecretInformation { get => secretInformation; set => secretInformation = value; }
     }
 }

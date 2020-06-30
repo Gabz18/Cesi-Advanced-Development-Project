@@ -21,13 +21,13 @@
             <StackPanel x:Name="ChosenFilesPanel" Margin="0,20" HorizontalAlignment="Left"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="btnOpenFile" Click="btnOpenFile_Click" Margin="0,0,10,0" Width="100" Content="Open file"/>
-                <Button x:Name="decryptFileButton" Style="{StaticResource HackedFont}" Content="DECRYPT" Width="120" Click="decryptFileButton_ClickAsync"/>
+                <Button x:Name="decryptFileButton" Style="{StaticResource HackedFont}" Content="DECRYPT" Width="120" Click="decryptFileButton_Click"/>
             </StackPanel>
             <ProgressBar Minimum="0" Maximum="100" IsIndeterminate="True" Height="12" Width="180" Margin="0,20,0,0" Visibility="Hidden" Name="ProgressBar"/>
             <StackPanel x:Name="DecryptedFilesPanel" Margin="0, 20, 0, 0" HorizontalAlignment="Left"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center">
-            <Button x:Name="resetButton" Margin="0,0,0,10" Width="100" Content="Reset" Click="btnReset_Click"></Button>
+            <Button x:Name="myResetButton" Margin="0,0,0,10" Width="100" Content="Reset" Click="btnReset_Click"></Button>
         </StackPanel>
     </Grid>
 </Window>

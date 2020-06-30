@@ -86,6 +86,7 @@ namespace Middleware
 
         public object[] tryEachCodeTPL()
         {
+            Console.WriteLine("Je suis entrain de traiter la demande pour: {0}", decryptorManagerGUID);
             Parallel.ForEach(possibleKeys, (i, state) =>
             {
 
@@ -96,9 +97,8 @@ namespace Middleware
                 else
                 {
                     string result = new Decryptor().applyXOR(i, encryptedDocument);
-                    Console.WriteLine("Déchiffrement avec cette clé: {0} et ce Thread: {2}, voici le résultat: {1}", i, result, Thread.CurrentThread.ManagedThreadId.ToString());
+                    //Console.WriteLine("Déchiffrement avec cette clé: {0} et ce Thread: {2}, voici le résultat: {1}", i, result, Thread.CurrentThread.ManagedThreadId.ToString());
                     //this.Send(i, result);
-                    
                 }
                 
             });
@@ -106,8 +106,6 @@ namespace Middleware
             eventDataReceived.WaitOne();
             
             Console.ForegroundColor = ConsoleColor.Red;
-
-            Console.WriteLine("je passe ici");
 
             string decryptedDocument = new Decryptor().applyXOR(correctCode, encryptedDocument);
 

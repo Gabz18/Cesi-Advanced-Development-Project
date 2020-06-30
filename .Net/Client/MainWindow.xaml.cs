@@ -28,6 +28,7 @@ namespace Client
     {
         private Collection<EncryptedFile> encryptedFiles;
         private Collection<DecryptedFile> decryptedFiles;
+        
 
         public MainWindow()
         {
@@ -52,7 +53,7 @@ namespace Client
             }
 
         }
-<<<<<<< HEAD
+
         //private async Task decryptFileButton_ClickAsync(object sender, RoutedEventArgs e)
         //{
         //    if(this.encryptedFiles.Count == 0)
@@ -79,9 +80,6 @@ namespace Client
         //        STG finalResponse = await response;
         //    }
         //}
-=======
-
->>>>>>> 5803af9c36354a1ba04cb7f08ee4e9bdff24b4bd
 
         private void decryptFileButton_Click(object sender, RoutedEventArgs e)
         {
@@ -91,26 +89,23 @@ namespace Client
             }
             else
             {
-<<<<<<< HEAD
+
                 //decryptFileButton.IsEnabled = false;
                 //ProgressBar.Visibility = Visibility.Visible;
-=======
-                resetButton.IsEnabled = false;
-                btnOpenFile.IsEnabled = false;
-                decryptFileButton.IsEnabled = false;
+
+
+                //myResetButton.IsEnabled = false;
+                //btnOpenFile.IsEnabled = false;
+                //decryptFileButton.IsEnabled = false;
                 ProgressBar.Visibility = Visibility.Visible;
->>>>>>> 5803af9c36354a1ba04cb7f08ee4e9bdff24b4bd
+
 
                 ////Partie simulation de travail 
                 BackgroundWorker worker = new BackgroundWorker();
+                
                 worker.DoWork += worker_doWork;
                 worker.RunWorkerCompleted += worker_RunWorkerCompleted;
                 worker.RunWorkerAsync();
-<<<<<<< HEAD
-               
-=======
-                //Fin de cette partie
->>>>>>> 5803af9c36354a1ba04cb7f08ee4e9bdff24b4bd
             }
         }
 
@@ -132,32 +127,39 @@ namespace Client
                 m.Right = 10;
                 decryptedFilesView.Margin = m;
 
-                decryptedFilesView.Items.Add(file.name);
+                decryptedFilesView.Items.Add(file.Name);
                 stack.Children.Add(decryptedFilesView);
                 stack.Children.Add(downloadButton);
                 DecryptedFilesPanel.Children.Add(stack);
-                resetButton.IsEnabled = true;
-
+                myResetButton.IsEnabled = true;
             }
         }
 
         private void worker_doWork(object sender, DoWorkEventArgs e)
         {
-            foreach (EncryptedFile i in encryptedFiles)
+            Collection<EncryptedFile> myCollection = new Collection<EncryptedFile>();
+            
+            foreach(EncryptedFile encryptedFile in encryptedFiles)
+            {
+                myCollection.Add(encryptedFile);
+            }
+            encryptedFiles.Clear();
+
+            Parallel.ForEach(myCollection, i =>
             {
                 STG response = Sender.Instance.sendEncryptedDocument(new object[] { i.content });
                 decryptedFiles.Add(new DecryptedFile((string)response.Data[0], (string)response.Data[1], (string)response.Data[2], (string)response.Data[3]));
-            }
+            });
         }
 
 
         private void btnSaveFile_Click(object sender, RoutedEventArgs e)
         {
             var receivedFile = ((Button)sender).Tag;
-            EncryptedFile file = (EncryptedFile)receivedFile;
+            DecryptedFile file = (DecryptedFile)receivedFile;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == true)
-                File.WriteAllText(saveFileDialog.FileName, file.content);
+                File.WriteAllText(saveFileDialog.FileName, file.Content);
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
