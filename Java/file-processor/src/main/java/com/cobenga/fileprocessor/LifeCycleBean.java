@@ -1,5 +1,6 @@
 package com.cobenga.fileprocessor;
 
+import com.cobenga.fileprocessor.client.MiddlewareClient;
 import com.cobenga.fileprocessor.dao.WordDao;
 import com.cobenga.fileprocessor.dao.WordDaoImpl;
 
@@ -21,8 +22,12 @@ public class LifeCycleBean {
     @EJB
     private WordDao wordDao;
 
+    //@EJB
+    //private MiddlewareClient tester;
+
     @PostConstruct
     public void init() {
+        //tester.notifyMiddlewareSecretInformationHasBeenFound("Benjamin", "Rebattu", "Marche chien");
         wordDao.reInitDb();
         File file = new File(PATH_TO_DICTIONARY);
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {

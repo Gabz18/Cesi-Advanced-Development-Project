@@ -1,7 +1,9 @@
 package com.cobenga.fileprocessor.client;
 
-import com.cobenga.fileprocessor.client.generated.FileEndpoint;
-import com.cobenga.fileprocessor.client.generated.FileService;
+import com.cobenga.fileprocessor.client.generated.IServiceJavaReceiver;
+import com.cobenga.fileprocessor.client.generated.MSG;
+import com.cobenga.fileprocessor.client.generated.ObjectFactory;
+import com.cobenga.fileprocessor.client.generated.ServiceJavaReceiver;
 
 import javax.ejb.Stateless;
 import javax.xml.ws.WebServiceRef;
@@ -12,15 +14,20 @@ import javax.xml.ws.WebServiceRef;
 @Stateless
 public class MiddlewareClientBean implements MiddlewareClient {
 
+    private final ObjectFactory factory = new ObjectFactory();
 
-    @WebServiceRef(FileService.class)
-    private FileEndpoint fileEndpoint;
+    @WebServiceRef(ServiceJavaReceiver.class)
+    private IServiceJavaReceiver serviceJavaReceiver;
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void notifyMiddlewareSecretInformationHasBeenFound(String secretInformation, String code, String fileUuid) {
-        fileEndpoint.fileAnalysisProcessStart("a", "a", "a", "a", "a");
+        MSG message = new MSG();
+        message.setSecretInformation(factory.createMSGSecretInformation(secretInformation));
+        message.setDecryptionCode(factory.createMSGDecryptionCode(code));
+        message.setDocumentGuid(factory.createGuid(fileUuid));
+        serviceJavaReceiver.correctCodeFound(message);
     }
 }
