@@ -12,3 +12,17 @@ C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionSer
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\Middleware.dll
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\Middleware.pdb
 C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\Middleware.dll.config
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\ServerNoSecure.exe.config
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\ServerNoSecure.exe
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\ServerNoSecure.pdb
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\Middleware.dll
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\WCF_Contract.dll
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\Middleware.pdb
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\Middleware.dll.config
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\WCF_Contract.pdb
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\bin\Debug\WCF_Contract.dll.config
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\obj\Debug\ServerNoSecure.csprojAssemblyReference.cache
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\obj\Debug\ServerNoSecure.csproj.CoreCompileInputs.cache
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\obj\Debug\ServerNoSecure.csproj.CopyComplete
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\obj\Debug\ServerNoSecure.exe
+D:\Projets\AdvancedDevelopment\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerNoSecure\obj\Debug\ServerNoSecure.pdb

@@ -28,7 +28,7 @@ namespace Client
     {
         private Collection<EncryptedFile> encryptedFiles;
         private Collection<DecryptedFile> decryptedFiles;
-        
+
 
         public MainWindow()
         {
@@ -91,8 +91,6 @@ namespace Client
             {
 
                 //decryptFileButton.IsEnabled = false;
-                //ProgressBar.Visibility = Visibility.Visible;
-
 
                 //myResetButton.IsEnabled = false;
                 //btnOpenFile.IsEnabled = false;
@@ -111,7 +109,7 @@ namespace Client
 
         private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //ProgressBar.Visibility = Visibility.Hidden;
+            ProgressBar.Visibility = Visibility.Hidden;
             foreach (DecryptedFile file in decryptedFiles)
             {
                 StackPanel stack = new StackPanel();
