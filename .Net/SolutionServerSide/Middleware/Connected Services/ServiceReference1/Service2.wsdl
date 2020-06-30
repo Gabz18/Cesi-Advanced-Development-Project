@@ -4,15 +4,18 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8755/?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8755/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8755/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ServerJava" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService2_verifyData_InputMessage">
     <wsdl:part name="parameters" element="tns:verifyData" />
   </wsdl:message>
+  <wsdl:message name="IService2_verifyData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:verifyDataResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService2">
     <wsdl:operation name="verifyData">
       <wsdl:input wsaw:Action="http://tempuri.org/IService2/verifyData" message="tns:IService2_verifyData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService2/verifyDataResponse" message="tns:IService2_verifyData_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:service name="Service2" />

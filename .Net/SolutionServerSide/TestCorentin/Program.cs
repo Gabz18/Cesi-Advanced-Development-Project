@@ -12,10 +12,11 @@ namespace TestCorentin
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(new Decryptor().applyXOR("JVFC", "8f7/.2c?8f3/#f0:¿%*+:"));
+            Sender mySender = Sender.Instance;
+            mySender.sendMessageToJava();
 
-            Console.WriteLine("Appuyer sur entrer pour quitter...");
-            Console.ReadLine();
+            Console.WriteLine("Service is running");
+            Console.WriteLine("Press enter to quit....");
         }
     }
 }

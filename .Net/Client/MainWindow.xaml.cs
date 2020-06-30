@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Client.ServiceReference1;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,10 +27,12 @@ namespace Client
     public partial class MainWindow : Window
     {
         private Collection<EncryptedFile> encryptedFiles;
+        private Collection<DecryptedFile> decryptedFiles;
 
         public MainWindow()
         {
             this.encryptedFiles = new Collection<EncryptedFile>();
+            this.decryptedFiles = new Collection<DecryptedFile>();
             InitializeComponent();
         }
 
@@ -49,29 +52,57 @@ namespace Client
             }
 
         }
+        //private async Task decryptFileButton_ClickAsync(object sender, RoutedEventArgs e)
+        //{
+        //    if(this.encryptedFiles.Count == 0)
+        //    {
+        //        MessageBox.Show("On ne peut pas décrypter si il n'y a aucun fichier à traiter !");
+        //    } else
+        //    {
+        //        //decryptFileButton.IsEnabled = false;
+        //        //ProgressBar.Visibility = Visibility.Visible;
+
+        //        ////Partie simulation de travail 
+        //        BackgroundWorker worker = new BackgroundWorker();
+        //        worker.DoWork += worker_doWork;
+        //        //worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+        //        //worker.RunWorkerAsync(10000);
+        //        ////Fin de cette partie
+        //        ///
+        //        //foreach(string ency)
+
+        //        Task<STG> response = Sender.Instance.sendEncryptedDocumentAsync(new object[] { encryptedFiles[0].content });
+
+        //        Console.WriteLine("je peux faire autre chose en attendant");
+
+        //        STG finalResponse = await response;
+        //    }
+        //}
+
         private void decryptFileButton_Click(object sender, RoutedEventArgs e)
         {
-            if(this.encryptedFiles.Count == 0)
+            if (this.encryptedFiles.Count == 0)
             {
                 MessageBox.Show("On ne peut pas décrypter si il n'y a aucun fichier à traiter !");
-            } else
+            }
+            else
             {
-                decryptFileButton.IsEnabled = false;
-                ProgressBar.Visibility = Visibility.Visible;
+                //decryptFileButton.IsEnabled = false;
+                //ProgressBar.Visibility = Visibility.Visible;
 
-                //Partie simulation de travail 
+                ////Partie simulation de travail 
                 BackgroundWorker worker = new BackgroundWorker();
                 worker.DoWork += worker_doWork;
                 worker.RunWorkerCompleted += worker_RunWorkerCompleted;
-                worker.RunWorkerAsync(10000);
-                //Fin de cette partie
+                worker.RunWorkerAsync();
+               
             }
         }
 
         private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ProgressBar.Visibility = Visibility.Hidden;
-            foreach (EncryptedFile file in encryptedFiles)
+            //ProgressBar.Visibility = Visibility.Hidden;
+            foreach (DecryptedFile file in decryptedFiles)
             {
                 StackPanel stack = new StackPanel();
                 stack.Orientation = Orientation.Horizontal;
@@ -97,7 +128,11 @@ namespace Client
 
         private void worker_doWork(object sender, DoWorkEventArgs e)
         {
-            Thread.Sleep(5000);
+            foreach (EncryptedFile i in encryptedFiles)
+            {
+                STG response = Sender.Instance.sendEncryptedDocument(new object[] { i.content });
+                decryptedFiles.Add(new DecryptedFile((string)response.Data[0], (string)response.Data[1], (string)response.Data[2], (string)response.Data[3]));
+            }
         }
 
 

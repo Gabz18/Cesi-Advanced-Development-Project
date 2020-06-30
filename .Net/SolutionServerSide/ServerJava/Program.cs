@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
-using WCF_Contract;
 
 namespace ServerJava
 {
@@ -21,7 +20,7 @@ namespace ServerJava
 
             host.Open();
 
-            Console.WriteLine("Service is running");
+            Console.WriteLine("Service is running a");
             Console.WriteLine("Press enter to quit....");
 
             Console.ReadLine();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,27 +17,32 @@ namespace Middleware
         private Mutex sendMessageAccess;
         private Sender()
         {
+            //[WebInvoke(BodyStyle = WebMessageBodyStyle.Wrapped)]
             proxy = new Service2Client();
             sendMessageAccess = new Mutex();
         }
 
-        public void sendMessageToJava(string documentGUID, string code, string documentDecrypted)
+        public void sendMessageToJava(string documentGUID, string code, string resultDecryption)
         {
             sendMessageAccess.WaitOne();
-            proxy.verifyData(this.createMessageJava(documentGUID, code, documentDecrypted));
+
+            //JavaMessage message = this.createMessageJava(documentGUID, code, resultDecryption);
+
+            
+            proxy.verifyData(documentGUID, code, resultDecryption);
 
             sendMessageAccess.ReleaseMutex();
         }
 
-        private JavaMessage createMessageJava(string documentGUID, string code, string documentDecrypted)
-        {
-            JavaMessage javaMessage = new JavaMessage();
-            javaMessage.DocumentGUID = documentDecrypted;
-            javaMessage.Code = code;
-            javaMessage.DocumentDecrypted = documentDecrypted;
+        //private JavaMessage createMessageJava(string documentGUID, string code, string resultDecryption)
+        //{
+        //    JavaMessage javaMessage = new JavaMessage();
+        //    javaMessage.DocumentGUID = documentGUID;
+        //    javaMessage.Code = code;
+        //    javaMessage.ResultDecryption = resultDecryption;
 
-            return javaMessage;
-        }
+        //    return javaMessage;
+        //}
 
         public static Sender Instance
         {

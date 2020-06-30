@@ -34,18 +34,17 @@ namespace WCF_Contract
                 case ("Decryption"):
 
                     DecryptorManager myDecryptorManager = new DecryptorManager((string)msg.Data[0]);
-                    decryptorManagerContainer.setElementDictionnary("benjamin", myDecryptorManager);
+                    decryptorManagerContainer.setElementDictionnary(myDecryptorManager.DecryptionManagerGUID, myDecryptorManager);
 
-                    object[] response = myDecryptorManager.tryEachCodeTPL();
+                    object [] response = myDecryptorManager.tryEachCodeTPL();
                     return createMessageSTG("Response", response);
-                    //break;
-
-
-                 case ("StopDecryption"):
-                    DecryptorManager decryptorManager = decryptorManagerContainer.getElementDictionary((string)msg.Data[0]);
-                    decryptorManager.responseReceived((string)msg.Data[1]);
                     
-                    break;
+
+                 //case ("StopDecryption"):
+                 //   DecryptorManager decryptorManager = decryptorManagerContainer.getElementDictionary((string)msg.Data[0]);
+                 //   decryptorManager.responseReceived((string)msg.Data[1]);
+                    
+                 //   break;
             }
             return msg;
         }

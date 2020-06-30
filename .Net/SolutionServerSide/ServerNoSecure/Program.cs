@@ -20,16 +20,19 @@ namespace ServerNoSecure
         {
             //DecryptorManagerContainer.Instance;
 
-            ServiceHost host = new ServiceHost(typeof(Service1));
+            ServiceHost hostNetTCP = new ServiceHost(typeof(Service1));
+            ServiceHost hostWS = new ServiceHost(typeof(ServiceJavaReceiver));
 
-            host.Open();
+            hostNetTCP.Open();
+            hostWS.Open();
 
             Console.WriteLine("Service is running");
             Console.WriteLine("Press enter to quit....");
 
             Console.ReadLine();
 
-            host.Close();
+            hostNetTCP.Close();
+            hostWS.Close();
         }
     }
 }

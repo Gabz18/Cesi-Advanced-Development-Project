@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Text;
 
 namespace ServerJava
@@ -11,8 +12,9 @@ namespace ServerJava
     [ServiceContract]
     public interface IService2
     {
-        [OperationContract(IsOneWay = true)]
-        void verifyData(JavaMessage msg);
+        [OperationContract(IsOneWay = false)]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Wrapped)]
+        void verifyData(string documentGUID, string code, string resultDecrryption);
     }
 
     [DataContract]
@@ -23,10 +25,10 @@ namespace ServerJava
         string resultDecryption;
 
         [DataMember]
-        public string DocumentGUID { get => DocumentGUID; set => DocumentGUID = value; }
+        public string DocumentGUID { get => documentGUID; set => documentGUID = value; }
 
         [DataMember]
-        public string DocumentDecrypted { get => DocumentDecrypted; set => DocumentDecrypted = value; }
+        public string ResultDecryption { get => resultDecryption; set => resultDecryption = value; }
 
         [DataMember]
         public string Code { get => code; set => code = value; }

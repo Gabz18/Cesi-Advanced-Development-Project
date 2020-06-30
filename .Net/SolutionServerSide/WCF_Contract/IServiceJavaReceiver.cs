@@ -18,7 +18,16 @@ namespace WCF_Contract
     [DataContract]
     public class MSG
     {
+        string secretInformation;
+        string decryptionCode;
 
+        [DataMember]
+        public string SecretInformation { get => secretInformation; set => secretInformation = value; }
 
+        [DataMember]
+        public string DocumentGuid { get; set; }
+
+        [DataMember]
+        public string DecryptionCode { get => decryptionCode; set => decryptionCode = value; }
     } 
 }

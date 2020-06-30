@@ -16,6 +16,7 @@ namespace Middleware
         
         private ManualResetEvent eventDataReceived;
         private string encryptedDocument;
+        private string secretInformation;
         private List<string> possibleKeys;
         private string decryptorManagerGUID;
         private Sender sender;
@@ -29,7 +30,7 @@ namespace Middleware
         {
             this.encryptedDocument = encrytedDocument;
             eventDataReceived = new ManualResetEvent(false);
-            sender = Sender.Instance;
+            //sender = Sender.Instance;
 
             decryptorManagerGUID = Guid.NewGuid().ToString();
             possibleKeys = this.getPossiblesKeys(this.getAlphabetCharacter());
@@ -79,6 +80,7 @@ namespace Middleware
             {
                 string result = new Decryptor().applyXOR(key, encryptedDocument);
                 Console.WriteLine("Déchiffrement avec cette clé: {0}, voici le résultat: {1}", key, result);
+                //this.Send(key, result);
             }
         }
 
@@ -95,6 +97,8 @@ namespace Middleware
                 {
                     string result = new Decryptor().applyXOR(i, encryptedDocument);
                     Console.WriteLine("Déchiffrement avec cette clé: {0} et ce Thread: {2}, voici le résultat: {1}", i, result, Thread.CurrentThread.ManagedThreadId.ToString());
+                    //this.Send(i, result);
+                    
                 }
                 
             });
@@ -111,17 +115,27 @@ namespace Middleware
         }
 
 
-        public void Send(string data)
+        public void Send(string code, string documentDecrypted)
         {
-
+            sender.sendMessageToJava(decryptorManagerGUID, code, documentDecrypted);
         }
 
 
-        public void responseReceived(string code)
+        public void responseReceived(string code, string secretInformation)
         {
             isStopped = true;
-            correctCode = code;
+            this.correctCode = code;
+            this.secretInformation = secretInformation;
             eventDataReceived.Set();
+        }
+
+
+        public string DecryptionManagerGUID
+        {
+            get
+            {
+                return decryptorManagerGUID;
+            }
         }
     }
 }

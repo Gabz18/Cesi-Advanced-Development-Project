@@ -9,96 +9,17 @@
 //------------------------------------------------------------------------------
 
 namespace Middleware.ServiceReference1 {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="JavaMessage", Namespace="http://schemas.datacontract.org/2004/07/ServerJava")]
-    [System.SerializableAttribute()]
-    public partial class JavaMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DocumentDecryptedField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DocumentGUIDField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Code {
-            get {
-                return this.CodeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
-                    this.CodeField = value;
-                    this.RaisePropertyChanged("Code");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DocumentDecrypted {
-            get {
-                return this.DocumentDecryptedField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DocumentDecryptedField, value) != true)) {
-                    this.DocumentDecryptedField = value;
-                    this.RaisePropertyChanged("DocumentDecrypted");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DocumentGUID {
-            get {
-                return this.DocumentGUIDField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DocumentGUIDField, value) != true)) {
-                    this.DocumentGUIDField = value;
-                    this.RaisePropertyChanged("DocumentGUID");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService2")]
     public interface IService2 {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IService2/verifyData")]
-        void verifyData(Middleware.ServiceReference1.JavaMessage msg);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService2/verifyData", ReplyAction="http://tempuri.org/IService2/verifyDataResponse")]
+        void verifyData(string documentGUID, string code, string resultDecrryption);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IService2/verifyData")]
-        System.Threading.Tasks.Task verifyDataAsync(Middleware.ServiceReference1.JavaMessage msg);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService2/verifyData", ReplyAction="http://tempuri.org/IService2/verifyDataResponse")]
+        System.Threading.Tasks.Task verifyDataAsync(string documentGUID, string code, string resultDecrryption);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -128,12 +49,12 @@ namespace Middleware.ServiceReference1 {
                 base(binding, remoteAddress) {
         }
         
-        public void verifyData(Middleware.ServiceReference1.JavaMessage msg) {
-            base.Channel.verifyData(msg);
+        public void verifyData(string documentGUID, string code, string resultDecrryption) {
+            base.Channel.verifyData(documentGUID, code, resultDecrryption);
         }
         
-        public System.Threading.Tasks.Task verifyDataAsync(Middleware.ServiceReference1.JavaMessage msg) {
-            return base.Channel.verifyDataAsync(msg);
+        public System.Threading.Tasks.Task verifyDataAsync(string documentGUID, string code, string resultDecrryption) {
+            return base.Channel.verifyDataAsync(documentGUID, code, resultDecrryption);
         }
     }
 }

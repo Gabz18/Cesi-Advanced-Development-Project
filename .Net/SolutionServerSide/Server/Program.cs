@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
 using WCF_Contract;
+using Server.ServiceReference1;
 
 namespace Server
 {
@@ -27,6 +28,8 @@ namespace Server
             Console.ReadLine();
 
             host.Close();
+
+
         }
     }
 }
