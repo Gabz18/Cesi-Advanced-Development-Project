@@ -26,10 +26,12 @@ namespace Client
     public partial class MainWindow : Window
     {
         private Collection<EncryptedFile> encryptedFiles;
+        private Collection<DecryptedFile> decryptedFiles;
 
         public MainWindow()
         {
             this.encryptedFiles = new Collection<EncryptedFile>();
+            this.decryptedFiles = new Collection<DecryptedFile>();
             InitializeComponent();
         }
 
@@ -42,13 +44,15 @@ namespace Client
             if (openFileDialog.ShowDialog() == true)
             {
                 EncryptedFile encryptedFile = new EncryptedFile(openFileDialog.SafeFileName, File.ReadAllText(openFileDialog.FileName));
+                this.encryptedFiles.Add(encryptedFile);
                 encryptedFilesView.Items.Add(encryptedFile.name);
                 encryptedFilesView.Width = 200;
-                this.encryptedFiles.Add(encryptedFile);
                 ChosenFilesPanel.Children.Add(encryptedFilesView);
             }
 
         }
+
+
         private void decryptFileButton_Click(object sender, RoutedEventArgs e)
         {
             if(this.encryptedFiles.Count == 0)
@@ -56,6 +60,8 @@ namespace Client
                 MessageBox.Show("On ne peut pas décrypter si il n'y a aucun fichier à traiter !");
             } else
             {
+                resetButton.IsEnabled = false;
+                btnOpenFile.IsEnabled = false;
                 decryptFileButton.IsEnabled = false;
                 ProgressBar.Visibility = Visibility.Visible;
 
@@ -63,7 +69,7 @@ namespace Client
                 BackgroundWorker worker = new BackgroundWorker();
                 worker.DoWork += worker_doWork;
                 worker.RunWorkerCompleted += worker_RunWorkerCompleted;
-                worker.RunWorkerAsync(10000);
+                worker.RunWorkerAsync();
                 //Fin de cette partie
             }
         }
@@ -90,7 +96,7 @@ namespace Client
                 stack.Children.Add(decryptedFilesView);
                 stack.Children.Add(downloadButton);
                 DecryptedFilesPanel.Children.Add(stack);
-                btnOpenFile.Visibility = Visibility.Collapsed;
+                resetButton.IsEnabled = true;
 
             }
         }
@@ -108,6 +114,16 @@ namespace Client
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == true)
                 File.WriteAllText(saveFileDialog.FileName, file.content);
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            this.encryptedFiles.Clear();
+            this.decryptedFiles.Clear();
+            DecryptedFilesPanel.Children.Clear();
+            ChosenFilesPanel.Children.Clear();
+            btnOpenFile.IsEnabled = true;
+            decryptFileButton.IsEnabled = true;
         }
     }
 }
