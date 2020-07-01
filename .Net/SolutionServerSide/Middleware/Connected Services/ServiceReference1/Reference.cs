@@ -12,49 +12,159 @@ namespace Middleware.ServiceReference1 {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService2")]
-    public interface IService2 {
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://filereceiver.cobenga.com/", ConfigurationName="ServiceReference1.FileEndpoint")]
+    public interface FileEndpoint {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService2/verifyData", ReplyAction="http://tempuri.org/IService2/verifyDataResponse")]
-        void verifyData(string documentGUID, string code, string resultDecrryption);
+        // CODEGEN : La génération du contrat de message depuis le nom d'élément fileName de l'espace de noms  n'est pas marqué nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://filereceiver.cobenga.com/FileEndpoint/fileAnalysisProcessStartRequest", ReplyAction="http://filereceiver.cobenga.com/FileEndpoint/fileAnalysisProcessStartResponse")]
+        Middleware.ServiceReference1.fileAnalysisProcessStartResponse fileAnalysisProcessStart(Middleware.ServiceReference1.fileAnalysisProcessStartRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService2/verifyData", ReplyAction="http://tempuri.org/IService2/verifyDataResponse")]
-        System.Threading.Tasks.Task verifyDataAsync(string documentGUID, string code, string resultDecrryption);
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IService2Channel : Middleware.ServiceReference1.IService2, System.ServiceModel.IClientChannel {
+        [System.ServiceModel.OperationContractAttribute(Action="http://filereceiver.cobenga.com/FileEndpoint/fileAnalysisProcessStartRequest", ReplyAction="http://filereceiver.cobenga.com/FileEndpoint/fileAnalysisProcessStartResponse")]
+        System.Threading.Tasks.Task<Middleware.ServiceReference1.fileAnalysisProcessStartResponse> fileAnalysisProcessStartAsync(Middleware.ServiceReference1.fileAnalysisProcessStartRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class Service2Client : System.ServiceModel.ClientBase<Middleware.ServiceReference1.IService2>, Middleware.ServiceReference1.IService2 {
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class fileAnalysisProcessStartRequest {
         
-        public Service2Client() {
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="fileAnalysisProcessStart", Namespace="http://filereceiver.cobenga.com/", Order=0)]
+        public Middleware.ServiceReference1.fileAnalysisProcessStartRequestBody Body;
+        
+        public fileAnalysisProcessStartRequest() {
         }
         
-        public Service2Client(string endpointConfigurationName) : 
+        public fileAnalysisProcessStartRequest(Middleware.ServiceReference1.fileAnalysisProcessStartRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="")]
+    public partial class fileAnalysisProcessStartRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string fileName;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string FileInternalUUID;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string code;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public byte[] decryptedText;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string userEmail;
+        
+        public fileAnalysisProcessStartRequestBody() {
+        }
+        
+        public fileAnalysisProcessStartRequestBody(string fileName, string FileInternalUUID, string code, byte[] decryptedText, string userEmail) {
+            this.fileName = fileName;
+            this.FileInternalUUID = FileInternalUUID;
+            this.code = code;
+            this.decryptedText = decryptedText;
+            this.userEmail = userEmail;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class fileAnalysisProcessStartResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="fileAnalysisProcessStartResponse", Namespace="http://filereceiver.cobenga.com/", Order=0)]
+        public Middleware.ServiceReference1.fileAnalysisProcessStartResponseBody Body;
+        
+        public fileAnalysisProcessStartResponse() {
+        }
+        
+        public fileAnalysisProcessStartResponse(Middleware.ServiceReference1.fileAnalysisProcessStartResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="")]
+    public partial class fileAnalysisProcessStartResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool FileProcessingStarted;
+        
+        public fileAnalysisProcessStartResponseBody() {
+        }
+        
+        public fileAnalysisProcessStartResponseBody(bool FileProcessingStarted) {
+            this.FileProcessingStarted = FileProcessingStarted;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface FileEndpointChannel : Middleware.ServiceReference1.FileEndpoint, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class FileEndpointClient : System.ServiceModel.ClientBase<Middleware.ServiceReference1.FileEndpoint>, Middleware.ServiceReference1.FileEndpoint {
+        
+        public FileEndpointClient() {
+        }
+        
+        public FileEndpointClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public Service2Client(string endpointConfigurationName, string remoteAddress) : 
+        public FileEndpointClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public Service2Client(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public FileEndpointClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public Service2Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public FileEndpointClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
-        public void verifyData(string documentGUID, string code, string resultDecrryption) {
-            base.Channel.verifyData(documentGUID, code, resultDecrryption);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Middleware.ServiceReference1.fileAnalysisProcessStartResponse Middleware.ServiceReference1.FileEndpoint.fileAnalysisProcessStart(Middleware.ServiceReference1.fileAnalysisProcessStartRequest request) {
+            return base.Channel.fileAnalysisProcessStart(request);
         }
         
-        public System.Threading.Tasks.Task verifyDataAsync(string documentGUID, string code, string resultDecrryption) {
-            return base.Channel.verifyDataAsync(documentGUID, code, resultDecrryption);
+        public bool fileAnalysisProcessStart(string fileName, string FileInternalUUID, string code, byte[] decryptedText, string userEmail) {
+            Middleware.ServiceReference1.fileAnalysisProcessStartRequest inValue = new Middleware.ServiceReference1.fileAnalysisProcessStartRequest();
+            inValue.Body = new Middleware.ServiceReference1.fileAnalysisProcessStartRequestBody();
+            inValue.Body.fileName = fileName;
+            inValue.Body.FileInternalUUID = FileInternalUUID;
+            inValue.Body.code = code;
+            inValue.Body.decryptedText = decryptedText;
+            inValue.Body.userEmail = userEmail;
+            Middleware.ServiceReference1.fileAnalysisProcessStartResponse retVal = ((Middleware.ServiceReference1.FileEndpoint)(this)).fileAnalysisProcessStart(inValue);
+            return retVal.Body.FileProcessingStarted;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Middleware.ServiceReference1.fileAnalysisProcessStartResponse> Middleware.ServiceReference1.FileEndpoint.fileAnalysisProcessStartAsync(Middleware.ServiceReference1.fileAnalysisProcessStartRequest request) {
+            return base.Channel.fileAnalysisProcessStartAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Middleware.ServiceReference1.fileAnalysisProcessStartResponse> fileAnalysisProcessStartAsync(string fileName, string FileInternalUUID, string code, byte[] decryptedText, string userEmail) {
+            Middleware.ServiceReference1.fileAnalysisProcessStartRequest inValue = new Middleware.ServiceReference1.fileAnalysisProcessStartRequest();
+            inValue.Body = new Middleware.ServiceReference1.fileAnalysisProcessStartRequestBody();
+            inValue.Body.fileName = fileName;
+            inValue.Body.FileInternalUUID = FileInternalUUID;
+            inValue.Body.code = code;
+            inValue.Body.decryptedText = decryptedText;
+            inValue.Body.userEmail = userEmail;
+            return ((Middleware.ServiceReference1.FileEndpoint)(this)).fileAnalysisProcessStartAsync(inValue);
         }
     }
 }

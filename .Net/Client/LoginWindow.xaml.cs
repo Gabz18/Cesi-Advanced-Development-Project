@@ -48,22 +48,9 @@ namespace Client
 
         private void toLogin(string username, string password)
         {
+            bool authentication = Sender.Instance.Authentication(username, password);
 
-            //Ci-dessous le code pour envoyer login mdp au middleware, à utiliser quand ce sera implémenté là bas
-            /*
-            STG response = Sender.Instance.sendLoginInformation(new object[] { username, password, AppToken.token });
-
-            if (response.ToString() == "OK")
-            {
-                this.authentified = true;
-            } else
-            {
-                this.authentified = false;
-            }
-            */
-
-            //En attendant :
-            this.authentified = true;
+            this.authentified = authentication;
         }
     }
 }

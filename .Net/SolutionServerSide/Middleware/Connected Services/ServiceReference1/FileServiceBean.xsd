@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://filereceiver.cobenga.com/" targetNamespace="http://filereceiver.cobenga.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="fileAnalysisProcessStart" type="tns:fileAnalysisProcessStart" />
+  <xs:element name="fileAnalysisProcessStartResponse" type="tns:fileAnalysisProcessStartResponse" />
+  <xs:complexType name="fileAnalysisProcessStart">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fileName" type="xs:string" />
+      <xs:element minOccurs="0" name="FileInternalUUID" type="xs:string" />
+      <xs:element minOccurs="0" name="code" type="xs:string" />
+      <xs:element minOccurs="0" name="decryptedText" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="userEmail" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="fileAnalysisProcessStartResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FileProcessingStarted" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

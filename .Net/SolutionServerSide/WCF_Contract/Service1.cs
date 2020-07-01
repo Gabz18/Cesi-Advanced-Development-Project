@@ -17,66 +17,111 @@ namespace WCF_Contract
                  ConcurrencyMode = ConcurrencyMode.Single)]
     public class Service1 : IService1, IDisposable
     {
-        public int instanceCount;
+        /*
+         * Possible Actions
+         */
         private const string AUTHENTICATION = "Authentication";
         private const string DECRYPTION = "Decryption";
+        private const string GET_FILES = "GetFiles";
 
-        private TokenUser tokenUser;
+        /*
+         * Information on the session
+         */
+        private TokenUser sessionTokenUser;
+        private string sessionTokenApp;
+        private string client;
 
         DecryptorManagerContainer decryptorManagerContainer;
 
         public Service1()
         {
+            //
             decryptorManagerContainer = DecryptorManagerContainer.Instance;
             Console.WriteLine("Une nouvelle instance de service est créee");
         }
 
         public STG m_service(STG msg)
         {
-            STG messageResponse;
+            bool statutOP = msg.StatutOP;
+            string info = msg.Info;
+            object[] data = msg.Data;
+            string operationName = msg.OperationName;
+            string tokenApp = msg.TokenApp;
+            string tokenUser = msg.TokenUser;
+            string appVersion = msg.AppVersion;
+            string operationVersion = msg.OperationVersion;
+
 
             switch (msg.OperationName)
             {
                 case (DECRYPTION):
 
-                    if(tokenUser.Token == msg.TokenUser)
+                    /*
+                     * Verify that the Session is still available
+                     */
+                    if(sessionTokenUser.Token == tokenUser)
                     {
-                        tokenUser.TokenUserRefreshed();
+                        sessionTokenUser.TokenUserRefreshed();
 
-                        Thread T1 = new Thread(() =>
+                        Thread DecryptionProcess = new Thread(() =>
                         {
-                            DecryptorManager myDecryptorManager = new DecryptorManager((string)msg.Data[0]);
+                            DecryptorManager myDecryptorManager = new DecryptorManager((string)data[0], (string)data[1], client);
                             decryptorManagerContainer.SetDecryptorManagerInDictionary(myDecryptorManager.TextGUID, myDecryptorManager);
 
-                            myDecryptorManager.DecryptWithEachKey();
+                            //myDecryptorManager.DecryptWithEachKey();
+                            myDecryptorManager.DecryptSingle("CU", (string)data[1]);
+
                         });
 
-                        T1.Start();
+                        DecryptionProcess.Start();
 
-                        messageResponse = createMessageSTG(DECRYPTION, null, "File loaded and decryption started", msg.TokenApp, msg.TokenUser, null, null, true);
+                        return createMessageSTG(DECRYPTION, null, "File loaded and decryption started", sessionTokenApp, sessionTokenUser.Token, appVersion, operationVersion, true);
                     }
+
+                    /*
+                     * TokenUser has expired the functionality is not available
+                     */
                     else
                     {
-                        messageResponse = createMessageSTG(DECRYPTION, null, "The TokenUser has expired", msg.TokenApp, msg.TokenUser, null, null, false);
+                       return createMessageSTG(DECRYPTION, data, "The TokenUser has expired", tokenApp, tokenUser, appVersion, operationVersion, false);
                     }
-                    break;
-
+                
+                
                 case (AUTHENTICATION):
 
-                    tokenUser = new TokenUser();
-                    
-                    object[] authenticationData = new object[] { tokenUser.Token };
+                    Auth authenticator = new Auth();
 
-                    messageResponse = createMessageSTG(msg.OperationName, authenticationData, "Cette operation n'existe pas", msg.TokenApp, msg.TokenUser, msg.AppVersion, null, false);
-                    break;
+                    if (authenticator.Authentication((string)data[0], (string)data[1], tokenApp) == true)
+                    {
+                        sessionTokenUser = authenticator.CreateTokenUser();
+                        sessionTokenApp = tokenApp;
+                        client = (string)data[0];
+
+                        Console.Write("Authentification réussie, le client {0} peut maintenant accèder à la session avec sa paire TokenUser/TokenApp: {1}/{2}", client, sessionTokenUser, sessionTokenApp);
+
+                        return createMessageSTG(AUTHENTICATION, null, "Authentication success, TokenUser created", sessionTokenApp, sessionTokenUser.Token, appVersion, operationVersion, true);
+                    }
+
+                    /*
+                     * Authentication failed
+                     */
+                    else
+                    {
+                        Dispose();
+                        return createMessageSTG(AUTHENTICATION, data, "User or Password Invalid", tokenApp, tokenUser, appVersion, operationVersion, false);
+                    }
+
+
+                //case (GET_FILES):
+                   
+
+
+                //        return createMessageSTG();
 
 
                 default:
-                    messageResponse = createMessageSTG(msg.OperationName, null, "Cette operation n'existe pas", msg.TokenApp, msg.TokenUser, msg.AppVersion, null, false);
-                    break;
+                    return createMessageSTG(operationName, data, "This operation doesn't exist",tokenApp, tokenUser, appVersion, operationVersion, false);
             }
-
-            return messageResponse;
         }
 
         private STG createMessageSTG(string OperationName, object[] data, string info, string tokenApp, string tokenUser, string appVersion, string operationVersion, bool statutOp)
@@ -96,6 +141,12 @@ namespace WCF_Contract
 
         public void Dispose()
         {
+            if(sessionTokenUser != null)
+            {
+                sessionTokenUser.DeleteTokenUser();
+            }
+
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("L'instance de client est fermée");
         }
     }

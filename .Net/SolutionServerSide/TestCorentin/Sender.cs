@@ -12,7 +12,7 @@ namespace TestCorentin
     class Sender
     {
         private static Sender instance;
-        private WebReference.FileService proxy;
+       
         private Mutex sendMessageAccess;
         private Sender()
         {
@@ -28,7 +28,8 @@ namespace TestCorentin
             string decryptorManagerGUID = Guid.NewGuid().ToString();
             bool FileProcessingStarted = true;
             bool FileStartedSpecified = true;
-            proxy.fileAnalysisProcessStart("testFileName", decryptorManagerGUID, code, resultDecryption, "ben@salut.fr", out FileProcessingStarted, out FileStartedSpecified);
+            proxy.fileAnalysisProcessStartRequestBody("testFileName", decryptorManagerGUID, code, resultDecryption, "ben@salut.fr", out FileProcessingStarted, out FileStartedSpecified);
+            HttpProxyCredentialType.
             
 
 

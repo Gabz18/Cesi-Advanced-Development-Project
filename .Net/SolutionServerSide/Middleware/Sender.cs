@@ -13,20 +13,29 @@ namespace Middleware
     class Sender
     {
         private static Sender instance;
-        private IService2 proxy;
+        private ServiceReference1.FileEndpointClient proxy;
         private Mutex sendMessageAccess;
         
         private Sender()
         {
-            proxy = new Service2Client();
+            proxy = new FileEndpointClient();
             sendMessageAccess = new Mutex();
         }
 
-        public void SendDecryptedAttempt(string documentGUID, string code, string resultDecryption)
+        public void SendDecryptedAttempt(string nameDocument, string textGUID, string code, string resultDecryption, string mailClient)
         {
             sendMessageAccess.WaitOne();
 
-            // Java SOAP
+            UTF8Encoding utf8 = new UTF8Encoding();
+            byte[] nameDocumentByte = utf8.GetBytes(nameDocument);
+            byte[] textGuidByte = utf8.GetBytes(textGUID);
+            byte[] codeByte = utf8.GetBytes(code);
+            byte[] resultDecryptionByte = utf8.GetBytes(resultDecryption);
+            byte[] mailClientByte = utf8.GetBytes(mailClient);
+
+
+            proxy.fileAnalysisProcessStart(nameDocument, textGUID, code, resultDecryptionByte, mailClient);
+            Console.Write("j'envois");
 
             sendMessageAccess.ReleaseMutex();
         }

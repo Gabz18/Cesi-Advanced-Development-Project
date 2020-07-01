@@ -22,7 +22,7 @@ namespace WCF_Contract
     [DataContract]
     public class STG
     {
-        bool statutOP = true;
+        bool statutOP;
         string info;
         object[] data;
         string operationName;

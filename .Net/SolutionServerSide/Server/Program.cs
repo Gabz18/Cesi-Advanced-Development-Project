@@ -18,18 +18,21 @@ namespace Server
 
         static void ini_serv()
         {
-            ServiceHost host = new ServiceHost(typeof(Service1));
+            //DecryptorManagerContainer.Instance;
 
-            host.Open();
+            ServiceHost hostNetTCP = new ServiceHost(typeof(Service1));
+            ServiceHost hostWS = new ServiceHost(typeof(ServiceJavaReceiver));
+
+            hostNetTCP.Open();
+            hostWS.Open();
 
             Console.WriteLine("Service is running");
             Console.WriteLine("Press enter to quit....");
 
             Console.ReadLine();
 
-            host.Close();
-
-
+            hostNetTCP.Close();
+            hostWS.Close();
         }
     }
 }

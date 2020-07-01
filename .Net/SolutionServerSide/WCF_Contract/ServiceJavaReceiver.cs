@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 
 namespace WCF_Contract
 {
@@ -15,17 +16,27 @@ namespace WCF_Contract
        public void correctCodeFound(MSG msg)
         {
             MSG message = msg;
-            string documentGuid = msg.DocumentGuid;
+            string textGuid = msg.PropRand;
             string decryptionCode = msg.DecryptionCode;
-            string secretInformation = msg.SecretInformation;
+            UTF8Encoding utf8 = new UTF8Encoding();
 
-            Console.WriteLine(documentGuid);
-            Console.WriteLine("le documentGUID est {0}, le code est {1} et l'information secrète est {2}", msg.DocumentGuid, decryptionCode, secretInformation);
+            string secretInformation = utf8.GetString(msg.SecretInformation);
 
-            //DecryptorManagerContainer decryptorManagerContainer = DecryptorManagerContainer.Instance;
-            //DecryptorManager decryptorManager = DecryptorManagerContainer.Instance.getElementDictionary(documentGUID);
+            
 
-            //decryptorManager.responseReceived(decryptionCode, secretInformation);
+            Thread ResultFound = new Thread(() =>
+            {
+                DecryptorManagerContainer decryptorManagerContainer = DecryptorManagerContainer.Instance;
+                DecryptorManager decryptorManager = DecryptorManagerContainer.Instance.GetDecryptorManager(textGuid);
+
+                decryptorManager.CorrectKeyFound(decryptionCode, secretInformation);
+            });
+
+            ResultFound.Start();
+
+            Console.WriteLine(msg.TextGuid);
+
+            Console.WriteLine("Bon code trouvé pour {0}, secret info: {1} et code: {2}", textGuid, secretInformation, decryptionCode);
         }
         
     }

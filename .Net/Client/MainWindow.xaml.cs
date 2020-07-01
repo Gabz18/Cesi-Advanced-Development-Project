@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IdentityModel.Tokens;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,12 +29,14 @@ namespace Client
     {
         private Collection<EncryptedFile> encryptedFiles;
         private Collection<DecryptedFile> decryptedFiles;
+        private bool tokenValidity;
 
 
         public MainWindow()
         {
             this.encryptedFiles = new Collection<EncryptedFile>();
             this.decryptedFiles = new Collection<DecryptedFile>();
+            tokenValidity = true;
             InitializeComponent();
         }
 
@@ -53,33 +56,6 @@ namespace Client
             }
 
         }
-
-        //private async Task decryptFileButton_ClickAsync(object sender, RoutedEventArgs e)
-        //{
-        //    if(this.encryptedFiles.Count == 0)
-        //    {
-        //        MessageBox.Show("On ne peut pas décrypter si il n'y a aucun fichier à traiter !");
-        //    } else
-        //    {
-        //        //decryptFileButton.IsEnabled = false;
-        //        //ProgressBar.Visibility = Visibility.Visible;
-
-        //        ////Partie simulation de travail 
-        //        BackgroundWorker worker = new BackgroundWorker();
-        //        worker.DoWork += worker_doWork;
-        //        //worker.RunWorkerCompleted += worker_RunWorkerCompleted;
-        //        //worker.RunWorkerAsync(10000);
-        //        ////Fin de cette partie
-        //        ///
-        //        //foreach(string ency)
-
-        //        Task<STG> response = Sender.Instance.sendEncryptedDocumentAsync(new object[] { encryptedFiles[0].content });
-
-        //        Console.WriteLine("je peux faire autre chose en attendant");
-
-        //        STG finalResponse = await response;
-        //    }
-        //}
 
         private void decryptFileButton_Click(object sender, RoutedEventArgs e)
         {
@@ -102,8 +78,16 @@ namespace Client
                 BackgroundWorker worker = new BackgroundWorker();
                 
                 worker.DoWork += worker_doWork;
-                worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+                //worker.RunWorkerCompleted += worker_RunWorkerCompleted;
                 worker.RunWorkerAsync();
+
+                if(tokenValidity == false)
+                {
+                    LoginWindow loginWindow = new LoginWindow();
+                    App.Current.MainWindow = loginWindow;
+                    this.Close();
+                    loginWindow.Show();
+                }
             }
         }
 
@@ -143,11 +127,13 @@ namespace Client
             }
             encryptedFiles.Clear();
 
-            Parallel.ForEach(myCollection, i =>
+            foreach(EncryptedFile file in myCollection)
             {
-                STG response = Sender.Instance.sendEncryptedDocument(new object[] { i.content });
-                decryptedFiles.Add(new DecryptedFile((string)response.Data[0], (string)response.Data[1], (string)response.Data[2], (string)response.Data[3]));
-            });
+                if(!Sender.Instance.sendEncryptedDocument(new object[] { file.name, file.content }))
+                {
+                    tokenValidity = false;
+                }
+            }
         }
 
 

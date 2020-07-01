@@ -18,16 +18,21 @@ namespace WCF_Contract
     [DataContract]
     public class MSG
     {
-        string secretInformation;
+        byte[] secretInformation;
         string decryptionCode;
+        string textGuid;
+        string propRand;
 
         [DataMember]
-        public string SecretInformation { get => secretInformation; set => secretInformation = value; }
+        public byte[] SecretInformation { get => secretInformation; set => secretInformation = value; }
 
         [DataMember]
-        public string DocumentGuid { get; set; }
+        public string PropRand { get => propRand; set => propRand = value; }
 
         [DataMember]
         public string DecryptionCode { get => decryptionCode; set => decryptionCode = value; }
+
+        [DataMember]
+        public string TextGuid { get => textGuid; set => textGuid = value; }
     } 
 }

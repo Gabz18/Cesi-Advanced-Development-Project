@@ -53,8 +53,4 @@ namespace Middleware
 
         public string Token { get => token; }
     }
-
-
-
-
 }

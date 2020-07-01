@@ -11,26 +11,36 @@ using System.Linq.Expressions;
 
 namespace Middleware
 {
-    public class DecryptorManager
+    public class DecryptorManager: IDisposable
     {
+        private string nameDocument;
         private string encryptedText;
-        private string secretInformation;
-        private List<string> possibleKeys;
-        private string textGUID;
+        private string client;
+
+        private IDecryptedFileDAO decryptedFileDAO;
+        private DecryptedFile decryptedFile;
         private Sender sender;
 
-        private string correctCode;
+        private List<string> possibleKeys;
+        private string textGUID;
 
+        private bool correctCodeFound = false;
 
-        private bool stopDecryptionProcess = false;
-
-        public DecryptorManager(string encrytedDocument)
+        public DecryptorManager(string nameDocument, string encrytedDocument, string client)
         {
+            this.nameDocument = nameDocument;
             this.encryptedText = encrytedDocument;
-            //sender = Sender.Instance;
+            this.client = client;
+
+            decryptedFileDAO = new DecryptedFileDAO();
+            sender = Sender.Instance;
+
+            decryptedFile = new DecryptedFile();
+            decryptedFile.Client = client;
+            decryptedFile.Name = nameDocument;
 
             textGUID = Guid.NewGuid().ToString();
-            possibleKeys = this.GetPossibleKeys(this.GetAlphabetCharacter());
+            possibleKeys = this.GetPossibleKeys2(this.GetAlphabetCharacter());
         }
 
         /// <summary>
@@ -71,14 +81,26 @@ namespace Middleware
             return combinations;
         }
 
-        public void tryEachCode()
+        public List<string> GetPossibleKeys2(List<string> characters)
         {
-            foreach (string key in possibleKeys)
+            List<string> combinations = new List<string>();
+
+            for (int i = 0; i < characters.Count; i += 1)
             {
-                string result = new Decryptor().applyXOR(key, encryptedText);
-                Console.WriteLine("Déchiffrement avec cette clé: {0}, voici le résultat: {1}", key, result);
-                //this.Send(key, result);
+                for (int j = 0; j < characters.Count; j += 1)
+                {
+               
+                     combinations.Add(characters[i] + characters[j]);
+                }
             }
+            return combinations;
+        }
+
+        public void DecryptSingle(string key, string encryptedText)
+        {
+            string decryptedTextResult = new Decryptor().applyXOR(key, encryptedText);
+            Console.WriteLine("Déchiffrement avec cette clé: {0} et ce Thread: {2}, voici le résultat: {1}", key, decryptedTextResult, Thread.CurrentThread.ManagedThreadId.ToString());
+            Send(key, decryptedTextResult);
         }
 
         public void DecryptWithEachKey()
@@ -88,38 +110,54 @@ namespace Middleware
             Parallel.ForEach(possibleKeys, (key) =>
             {
 
-                if (stopDecryptionProcess)
+                if (correctCodeFound)
                 {
                     return;
                 }
                 else
                 {
                     string decryptedTextResult = new Decryptor().applyXOR(key, encryptedText);
-                    //Console.WriteLine("Déchiffrement avec cette clé: {0} et ce Thread: {2}, voici le résultat: {1}", i, result, Thread.CurrentThread.ManagedThreadId.ToString());
-                    //this.Send(i, result);
+
+                    Console.WriteLine("Déchiffrement avec cette clé: {0} et ce Thread: {2}, voici le résultat: {1}", key, decryptedTextResult, Thread.CurrentThread.ManagedThreadId.ToString());
+                    Send(key, decryptedTextResult);
                 }
                 
             });
+
+            // Attend deux minutes après la sortie du Parallel.ForEach
         }
 
 
-        private void Send(string code, string documentDecrypted)
+        private void Send(string code, string resultDecryption)
         {
-            sender.SendDecryptedAttempt(textGUID, code, documentDecrypted);
+            sender.SendDecryptedAttempt(nameDocument, textGUID, code, resultDecryption, client + "@viacesi.fr");
         }
 
 
-        public void CorrectKeyFoundCorrect(string code, string secretInformation)
+        public void CorrectKeyFound(string code, string secretInformation)
         {
-            stopDecryptionProcess = true;
-            
-            this.correctCode = code;
-            this.secretInformation = secretInformation;
+            /*
+             * Stop the Parallel.ForEach() Process
+             */
+            correctCodeFound = true;
 
-            string decryptedDocument = new Decryptor().applyXOR(correctCode, encryptedText);
+            decryptedFile.Code = code;
+            decryptedFile.SecretInformation = secretInformation;
+            decryptedFile.Plaintext = new Decryptor().applyXOR(code, encryptedText);
+
+            InsertResultInDB();
         }
 
+        private void InsertResultInDB()
+        {
+            decryptedFileDAO.InsertDecryptedFile(decryptedFile);
+        }
 
+        public void Dispose()
+        {
+            DecryptorManagerContainer.Instance.RemoveDecryptorManagerFromDictionary(textGUID);
+        }
+          
         public string TextGUID
         {
             get

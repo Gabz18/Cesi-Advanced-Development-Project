@@ -214,7 +214,7 @@ namespace Client.ServiceReference1 {
         }
         
         public System.Threading.Tasks.Task<Client.ServiceReference1.STG> m_serviceAsync(Client.ServiceReference1.STG msg) {
-            return base.Channel.m_serviceAsync(msg); 
+            return base.Channel.m_serviceAsync(msg);
         }
     }
 }
