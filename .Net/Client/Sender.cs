@@ -31,6 +31,13 @@ namespace Client
             return response;
         }
 
+        //By CRN donc Ben si tu vois ça hésite pas à check si c'est bene
+        public STG sendLoginInformation(object[] data)
+        {
+            STG response = proxy.m_service(this.createMessage("Login", data));
+            return response;
+        }
+
 
         private STG createMessage(string operationName, object[] data)
         {

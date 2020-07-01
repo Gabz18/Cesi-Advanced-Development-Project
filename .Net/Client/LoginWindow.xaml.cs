@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Client.ServiceReference1;
 
 namespace Client
 {
@@ -40,14 +41,28 @@ namespace Client
             }
             else
             {
-                MessageBox.Show("Your login/password is incorrect");
+                MessageBox.Show("Votre pseudo/mot de passe est incorrect !");
             }
 
         }
 
         private void toLogin(string username, string password)
         {
-            //add connection to middleware through WCF
+
+            //Ci-dessous le code pour envoyer login mdp au middleware, à utiliser quand ce sera implémenté là bas
+            /*
+            STG response = Sender.Instance.sendLoginInformation(new object[] { username, password, AppToken.token });
+
+            if (response.ToString() == "OK")
+            {
+                this.authentified = true;
+            } else
+            {
+                this.authentified = false;
+            }
+            */
+
+            //En attendant :
             this.authentified = true;
         }
     }
