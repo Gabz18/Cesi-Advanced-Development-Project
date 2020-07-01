@@ -13,27 +13,24 @@ namespace Middleware
 {
     public class DecryptorManager
     {
-        
-        private ManualResetEvent eventDataReceived;
-        private string encryptedDocument;
+        private string encryptedText;
         private string secretInformation;
         private List<string> possibleKeys;
-        private string decryptorManagerGUID;
+        private string textGUID;
         private Sender sender;
 
         private string correctCode;
 
 
-        private bool isStopped = false;
+        private bool stopDecryptionProcess = false;
 
         public DecryptorManager(string encrytedDocument)
         {
-            this.encryptedDocument = encrytedDocument;
-            eventDataReceived = new ManualResetEvent(false);
+            this.encryptedText = encrytedDocument;
             //sender = Sender.Instance;
 
-            decryptorManagerGUID = Guid.NewGuid().ToString();
-            possibleKeys = this.getPossiblesKeys(this.getAlphabetCharacter());
+            textGUID = Guid.NewGuid().ToString();
+            possibleKeys = this.GetPossibleKeys(this.GetAlphabetCharacter());
         }
 
         /// <summary>
@@ -42,7 +39,7 @@ namespace Middleware
         /// the corresponding character into string and add it to the list. 
         /// </summary>
         /// <returns>Return the complete list of the Alphabet in Uppercase</returns>
-        public List<string> getAlphabetCharacter()
+        public List<string> GetAlphabetCharacter()
         {
             List<string> characters = new List<string>();
 
@@ -54,7 +51,7 @@ namespace Middleware
             return characters;
         }
 
-        public List<string> getPossiblesKeys(List<string> characters)
+        public List<string> GetPossibleKeys(List<string> characters)
         {
             List<string> combinations = new List<string>();
 
@@ -78,61 +75,56 @@ namespace Middleware
         {
             foreach (string key in possibleKeys)
             {
-                string result = new Decryptor().applyXOR(key, encryptedDocument);
+                string result = new Decryptor().applyXOR(key, encryptedText);
                 Console.WriteLine("Déchiffrement avec cette clé: {0}, voici le résultat: {1}", key, result);
                 //this.Send(key, result);
             }
         }
 
-        public object[] tryEachCodeTPL()
+        public void DecryptWithEachKey()
         {
-            Console.WriteLine("Je suis entrain de traiter la demande pour: {0}", decryptorManagerGUID);
-            Parallel.ForEach(possibleKeys, (i, state) =>
+            Console.WriteLine("Je suis entrain de traiter la demande pour ce texte chiffré {0} ayant pour Guid: {1}", encryptedText, textGUID);
+            
+            Parallel.ForEach(possibleKeys, (key) =>
             {
 
-                if (isStopped)
+                if (stopDecryptionProcess)
                 {
                     return;
                 }
                 else
                 {
-                    string result = new Decryptor().applyXOR(i, encryptedDocument);
+                    string decryptedTextResult = new Decryptor().applyXOR(key, encryptedText);
                     //Console.WriteLine("Déchiffrement avec cette clé: {0} et ce Thread: {2}, voici le résultat: {1}", i, result, Thread.CurrentThread.ManagedThreadId.ToString());
                     //this.Send(i, result);
                 }
                 
             });
+        }
 
-            eventDataReceived.WaitOne();
+
+        private void Send(string code, string documentDecrypted)
+        {
+            sender.SendDecryptedAttempt(textGUID, code, documentDecrypted);
+        }
+
+
+        public void CorrectKeyFoundCorrect(string code, string secretInformation)
+        {
+            stopDecryptionProcess = true;
             
-            Console.ForegroundColor = ConsoleColor.Red;
-
-            string decryptedDocument = new Decryptor().applyXOR(correctCode, encryptedDocument);
-
-            return new object[] { encryptedDocument, correctCode, decryptedDocument };
-        }
-
-
-        public void Send(string code, string documentDecrypted)
-        {
-            sender.sendMessageToJava(decryptorManagerGUID, code, documentDecrypted);
-        }
-
-
-        public void responseReceived(string code, string secretInformation)
-        {
-            isStopped = true;
             this.correctCode = code;
             this.secretInformation = secretInformation;
-            eventDataReceived.Set();
+
+            string decryptedDocument = new Decryptor().applyXOR(correctCode, encryptedText);
         }
 
 
-        public string DecryptionManagerGUID
+        public string TextGUID
         {
             get
             {
-                return decryptorManagerGUID;
+                return textGUID;
             }
         }
     }

@@ -57,6 +57,7 @@
     <Compile Include="ImplUserNameValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sender.cs" />
+    <Compile Include="TokenUserTimer.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

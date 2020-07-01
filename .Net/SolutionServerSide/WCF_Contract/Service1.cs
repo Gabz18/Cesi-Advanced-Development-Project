@@ -1,7 +1,9 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Policy;
 using System.ServiceModel;
 using System.Text;
 using System.Threading;
@@ -16,13 +18,17 @@ namespace WCF_Contract
     public class Service1 : IService1, IDisposable
     {
         public int instanceCount;
+        private const string AUTHENTICATION = "Authentication";
+        private const string DECRYPTION = "Decryption";
+
+        private TokenUser tokenUser;
+
         DecryptorManagerContainer decryptorManagerContainer;
 
         public Service1()
         {
-            instanceCount++;
             decryptorManagerContainer = DecryptorManagerContainer.Instance;
-            Console.WriteLine("Une Instance de service est créee");
+            Console.WriteLine("Une nouvelle instance de service est créee");
         }
 
         public STG m_service(STG msg)
@@ -31,29 +37,59 @@ namespace WCF_Contract
 
             switch (msg.OperationName)
             {
-                case ("Decryption"):
+                case (DECRYPTION):
 
-                    DecryptorManager myDecryptorManager = new DecryptorManager((string)msg.Data[0]);
-                    decryptorManagerContainer.setElementDictionnary(myDecryptorManager.DecryptionManagerGUID, myDecryptorManager);
+                    if(tokenUser.Token == msg.TokenUser)
+                    {
+                        tokenUser.TokenUserRefreshed();
 
-                    object [] response = myDecryptorManager.tryEachCodeTPL();
-                    return createMessageSTG("Response", response);
+                        Thread T1 = new Thread(() =>
+                        {
+                            DecryptorManager myDecryptorManager = new DecryptorManager((string)msg.Data[0]);
+                            decryptorManagerContainer.SetDecryptorManagerInDictionary(myDecryptorManager.TextGUID, myDecryptorManager);
+
+                            myDecryptorManager.DecryptWithEachKey();
+                        });
+
+                        T1.Start();
+
+                        messageResponse = createMessageSTG(DECRYPTION, null, "File loaded and decryption started", msg.TokenApp, msg.TokenUser, null, null, true);
+                    }
+                    else
+                    {
+                        messageResponse = createMessageSTG(DECRYPTION, null, "The TokenUser has expired", msg.TokenApp, msg.TokenUser, null, null, false);
+                    }
+                    break;
+
+                case (AUTHENTICATION):
+
+                    tokenUser = new TokenUser();
                     
+                    object[] authenticationData = new object[] { tokenUser.Token };
 
-                 //case ("StopDecryption"):
-                 //   DecryptorManager decryptorManager = decryptorManagerContainer.getElementDictionary((string)msg.Data[0]);
-                 //   decryptorManager.responseReceived((string)msg.Data[1]);
-                    
-                 //   break;
+                    messageResponse = createMessageSTG(msg.OperationName, authenticationData, "Cette operation n'existe pas", msg.TokenApp, msg.TokenUser, msg.AppVersion, null, false);
+                    break;
+
+
+                default:
+                    messageResponse = createMessageSTG(msg.OperationName, null, "Cette operation n'existe pas", msg.TokenApp, msg.TokenUser, msg.AppVersion, null, false);
+                    break;
             }
-            return msg;
+
+            return messageResponse;
         }
 
-        private STG createMessageSTG(string OperationName, object[] data)
+        private STG createMessageSTG(string OperationName, object[] data, string info, string tokenApp, string tokenUser, string appVersion, string operationVersion, bool statutOp)
         {
             STG message = new STG();
             message.OperationName = OperationName;
             message.Data = data;
+            message.StatutOP = statutOp;
+            message.Info = info;
+            message.TokenApp = tokenApp;
+            message.TokenUser = tokenUser;
+            message.AppVersion = appVersion;
+            message.OperationVersion = operationVersion;
 
             return message;
         }

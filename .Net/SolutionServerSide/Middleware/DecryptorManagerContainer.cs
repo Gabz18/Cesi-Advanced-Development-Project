@@ -9,48 +9,48 @@ namespace Middleware
     public class DecryptorManagerContainer
     {
         private static DecryptorManagerContainer instance = null;
-        private Dictionary<string, DecryptorManager> myDictionary;
+        private Dictionary<string, DecryptorManager> decryptorManagerDictionary;
 
         private DecryptorManagerContainer()
         {
-            myDictionary = new Dictionary<string, DecryptorManager>();
+            decryptorManagerDictionary = new Dictionary<string, DecryptorManager>();
             Console.WriteLine("Instance créee");
         }
 
-        public DecryptorManager getElementDictionary(string uuid)
+        public DecryptorManager GetDecryptorManager(string textGUID)
         {
             try
             {
-                return myDictionary[uuid];
+                return decryptorManagerDictionary[textGUID];
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine("Decryptor for uuid: {0} not found", uuid);
+                Console.WriteLine("Decryptor for uuid: {0} not found", textGUID);
                 return null;
             }
         }
 
-        public void setElementDictionnary(string uuid, DecryptorManager decryptorManager)
+        public void SetDecryptorManagerInDictionary(string textGUID, DecryptorManager decryptorManager)
         {
             try
             {
-                myDictionary.Add(uuid, decryptorManager);
+                decryptorManagerDictionary.Add(textGUID, decryptorManager);
             }
             catch (ArgumentException)
             {
-                Console.WriteLine("Impossible to add an object for this uuid: {0}, because it already exists", uuid);
+                Console.WriteLine("Impossible to add an object for this uuid: {0}, because it already exists", textGUID);
             }
         }
 
-        public void removeElementDictionary(string uuid)
+        public void RemoveDecryptorManagerFromDictionary(string textGUID)
         {
-            if (!myDictionary.ContainsKey(uuid))
+            if (!decryptorManagerDictionary.ContainsKey(textGUID))
             {
-                Console.WriteLine("The uuid {0} was not found in the Dictionary", uuid);
+                Console.WriteLine("The uuid {0} was not found in the Dictionary", textGUID);
             }
             else
             {
-                myDictionary.Remove(uuid);
+                decryptorManagerDictionary.Remove(textGUID);
             }
         }
 

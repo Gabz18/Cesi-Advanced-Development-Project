@@ -8,12 +8,12 @@ namespace Middleware
 {
     public class Decryptor
     {
-        public string applyXOR(string key, string text)
+        public string applyXOR(string key, string encryptedText)
         {
             var result = new StringBuilder();
 
-            for (int c = 0; c < text.Length; c++)
-                result.Append((char)((uint)text[c] ^ (uint)key[c % key.Length]));
+            for (int c = 0; c < encryptedText.Length; c++)
+                result.Append((char)((uint)encryptedText[c] ^ (uint)key[c % key.Length]));
 
             return result.ToString();
         }
