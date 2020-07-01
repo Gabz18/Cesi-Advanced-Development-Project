@@ -1,0 +1,1 @@
+wsimport -keep -p com.cobenga.fileprocessor.client.generated -d src/main/java/  -extension http://25.63.76.121:8775/?WSDL

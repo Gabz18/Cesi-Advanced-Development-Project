@@ -30,12 +30,17 @@ public class FileServiceBean implements FileServiceEndpointInterface {
      * {@inheritDoc}
      */
     @Override
-    public void handleIncomingFile(String fileName, String fileUuid, String code, String decryptedText, String userEmail) throws JMSException {
+    public Boolean handleIncomingFile(String fileName, String fileUuid, String code, String decryptedText, String userEmail) {
         TextMessage textMessage = jmsContext.createTextMessage(decryptedText);
-        textMessage.setStringProperty("fileName", fileName);
-        textMessage.setStringProperty("code", code);
-        textMessage.setStringProperty("userEmail", userEmail);
-        textMessage.setStringProperty("fileUuid", fileUuid);
-        jmsContext.createProducer().send(decryptedFileQueue, textMessage);
+        try {
+            textMessage.setStringProperty("fileName", fileName);
+            textMessage.setStringProperty("code", code);
+            textMessage.setStringProperty("userEmail", userEmail);
+            textMessage.setStringProperty("fileUuid", fileUuid);
+            jmsContext.createProducer().send(decryptedFileQueue, textMessage);
+            return true;
+        } catch (JMSException e) {
+            return false;
+        }
     }
 }

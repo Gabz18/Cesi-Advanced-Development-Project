@@ -1,8 +1,8 @@
 package com.cobenga.filereceiver;
 
-import javax.jms.JMSException;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 import javax.jws.WebService;
 
 /**
@@ -19,14 +19,14 @@ public interface FileServiceEndpointInterface {
      * @param code The decryption code used to obtain this file content.
      * @param decryptedText The decrypted file content.
      * @param userEmail The current asking for this file process.
-     * @throws JMSException
      */
     @WebMethod(operationName = "fileAnalysisProcessStart")
-    void handleIncomingFile(
+    @WebResult(name = "FileProcessingStarted")
+    Boolean handleIncomingFile(
             @WebParam(name = "fileName") String fileName,
-            @WebParam(name = "File internal UUID") String fileUuid,
+            @WebParam(name = "FileInternalUUID") String fileUuid,
             @WebParam(name = "code") String code,
             @WebParam(name = "decryptedText") String decryptedText,
             @WebParam(name = "userEmail") String userEmail
-    ) throws JMSException;
+    );
 }
