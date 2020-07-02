@@ -19,8 +19,9 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="DecryptionCode" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="DocumentGuid" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="SecretInformation" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="PropRand" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="SecretInformation" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/>
+ *         &lt;element name="TextGuid" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -32,17 +33,20 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "MSG", namespace = "http://schemas.datacontract.org/2004/07/WCF_Contract", propOrder = {
     "decryptionCode",
-    "documentGuid",
-    "secretInformation"
+    "propRand",
+    "secretInformation",
+    "textGuid"
 })
 public class MSG {
 
     @XmlElementRef(name = "DecryptionCode", namespace = "http://schemas.datacontract.org/2004/07/WCF_Contract", type = JAXBElement.class, required = false)
     protected JAXBElement<String> decryptionCode;
-    @XmlElementRef(name = "DocumentGuid", namespace = "http://schemas.datacontract.org/2004/07/WCF_Contract", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> documentGuid;
+    @XmlElementRef(name = "PropRand", namespace = "http://schemas.datacontract.org/2004/07/WCF_Contract", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> propRand;
     @XmlElementRef(name = "SecretInformation", namespace = "http://schemas.datacontract.org/2004/07/WCF_Contract", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> secretInformation;
+    protected JAXBElement<byte[]> secretInformation;
+    @XmlElementRef(name = "TextGuid", namespace = "http://schemas.datacontract.org/2004/07/WCF_Contract", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> textGuid;
 
     /**
      * Obtient la valeur de la propriété decryptionCode.
@@ -69,27 +73,27 @@ public class MSG {
     }
 
     /**
-     * Obtient la valeur de la propriété documentGuid.
+     * Obtient la valeur de la propriété propRand.
      * 
      * @return
      *     possible object is
      *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public JAXBElement<String> getDocumentGuid() {
-        return documentGuid;
+    public JAXBElement<String> getPropRand() {
+        return propRand;
     }
 
     /**
-     * Définit la valeur de la propriété documentGuid.
+     * Définit la valeur de la propriété propRand.
      * 
      * @param value
      *     allowed object is
      *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public void setDocumentGuid(JAXBElement<String> value) {
-        this.documentGuid = value;
+    public void setPropRand(JAXBElement<String> value) {
+        this.propRand = value;
     }
 
     /**
@@ -97,10 +101,10 @@ public class MSG {
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     {@link JAXBElement }{@code <}{@link byte[]}{@code >}
      *     
      */
-    public JAXBElement<String> getSecretInformation() {
+    public JAXBElement<byte[]> getSecretInformation() {
         return secretInformation;
     }
 
@@ -109,11 +113,35 @@ public class MSG {
      * 
      * @param value
      *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link byte[]}{@code >}
+     *     
+     */
+    public void setSecretInformation(JAXBElement<byte[]> value) {
+        this.secretInformation = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété textGuid.
+     * 
+     * @return
+     *     possible object is
      *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public void setSecretInformation(JAXBElement<String> value) {
-        this.secretInformation = value;
+    public JAXBElement<String> getTextGuid() {
+        return textGuid;
+    }
+
+    /**
+     * Définit la valeur de la propriété textGuid.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setTextGuid(JAXBElement<String> value) {
+        this.textGuid = value;
     }
 
 }

@@ -8,6 +8,7 @@ import javax.jms.JMSException;
 import javax.jms.Queue;
 import javax.jms.TextMessage;
 import javax.jws.WebService;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author gabz18
@@ -30,8 +31,10 @@ public class FileServiceBean implements FileServiceEndpointInterface {
      * {@inheritDoc}
      */
     @Override
-    public Boolean handleIncomingFile(String fileName, String fileUuid, String code, String decryptedText, String userEmail) {
-        TextMessage textMessage = jmsContext.createTextMessage(decryptedText);
+    public Boolean handleIncomingFile(String fileName, String fileUuid, String code, byte[] decryptedText, String userEmail) {
+        System.out.println("-------------------- New File message --------------------");
+        System.out.println("Text is : " + new String(decryptedText, StandardCharsets.UTF_8));
+        TextMessage textMessage = jmsContext.createTextMessage(new String(decryptedText, StandardCharsets.UTF_8));
         try {
             textMessage.setStringProperty("fileName", fileName);
             textMessage.setStringProperty("code", code);

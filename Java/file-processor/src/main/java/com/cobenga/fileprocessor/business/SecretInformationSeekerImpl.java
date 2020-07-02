@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 @Stateless
 public class SecretInformationSeekerImpl implements SecretInformationSeeker {
 
-    private final Pattern pattern = Pattern.compile("(L’information secrète est : .*)");
+    private final Pattern pattern = Pattern.compile("(information secrète est : [^.]*\\.)");
 
     /**
      * {@inheritDoc}

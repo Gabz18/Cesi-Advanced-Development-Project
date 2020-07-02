@@ -24,7 +24,7 @@ import javax.jms.MessageListener;
 )
 public class DecryptedFileProcessorBean implements MessageListener {
 
-    private static final double MIN_CONFIDENCE_LEVEL = 0.9d;
+    private static final double MIN_CONFIDENCE_LEVEL = 0.6d;
     private static final String MAIL_SUBJECT = "File Analysis Report";
 
     @EJB
@@ -51,7 +51,7 @@ public class DecryptedFileProcessorBean implements MessageListener {
      */
     @Override
     public void onMessage(Message message) {
-        System.out.println("-------------------- Message received ------------------------");
+        //System.out.println("-------------------- Message received ------------------------");
         try {
             String fileUuid = message.getStringProperty("fileUuid");
             if (uuidsCache.hasFileAlreadyBeenProcessed(fileUuid)) {
@@ -62,25 +62,29 @@ public class DecryptedFileProcessorBean implements MessageListener {
             String fileName = message.getStringProperty("fileName");
             String userEmail = message.getStringProperty("userEmail");
 
-            if (decryptedFileAnalyzer.findTextValidityConfidence(messageBody) >= MIN_CONFIDENCE_LEVEL) {
+            double ratio = decryptedFileAnalyzer.findTextValidityConfidence(messageBody);
+            if (ratio >= MIN_CONFIDENCE_LEVEL) {
+                System.out.println("Found Ratio : " + ratio);
 
+                System.out.println("Found valid decrypted text : " + messageBody);
                 uuidsCache.addProcessedFileUuid(fileUuid);
 
+
                 String secretInfo = secretInformationSeeker.findSecretInformation(messageBody);
+                mailService.sendMail(userEmail, MAIL_SUBJECT, buildMailBody(fileName, code, secretInfo, messageBody));
+
                 middlewareClient.notifyMiddlewareSecretInformationHasBeenFound(
                         secretInfo,
                         code,
                         fileUuid
                 );
-
-                mailService.sendMail(userEmail, MAIL_SUBJECT, buildMailBody(fileName, code, secretInfo));
             }
         } catch (JMSException | EmailException e) {
             e.printStackTrace();
         }
     }
 
-    private String buildMailBody(String fileName, String code, String secretInfo) {
+    private String buildMailBody(String fileName, String code, String secretInfo, String decryptedFile) {
         return "File : " +
                 fileName +
                 "\n\n" +
@@ -88,6 +92,8 @@ public class DecryptedFileProcessorBean implements MessageListener {
                 code +
                 "\n\n" +
                 "Secret Information : " +
-                secretInfo;
+                secretInfo +
+                "\n\n" +
+                "Decrypted Text : " + decryptedFile;
     }
 }

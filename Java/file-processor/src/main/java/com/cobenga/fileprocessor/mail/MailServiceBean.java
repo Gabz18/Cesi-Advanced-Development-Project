@@ -13,8 +13,8 @@ import javax.ejb.Stateless;
 public class MailServiceBean implements MailService {
 
     private static final String SMTP_HOST = "localhost";
-    private static final int SMTP_PORT = 8082;
-    private static final String MAIl_FROM = "Encrypted File Processor";
+    private static final int SMTP_PORT = 25;
+    private static final String MAIl_FROM = "Encrypted_File_Processor@gmail.com";
 
     /**
      * {@inheritDoc}

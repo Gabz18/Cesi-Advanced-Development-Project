@@ -51,9 +51,10 @@ public class ObjectFactory {
     private final static QName _AnyType_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "anyType");
     private final static QName _String_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "string");
     private final static QName _CorrectCodeFoundMsg_QNAME = new QName("http://tempuri.org/", "msg");
-    private final static QName _MSGDocumentGuid_QNAME = new QName("http://schemas.datacontract.org/2004/07/WCF_Contract", "DocumentGuid");
     private final static QName _MSGSecretInformation_QNAME = new QName("http://schemas.datacontract.org/2004/07/WCF_Contract", "SecretInformation");
     private final static QName _MSGDecryptionCode_QNAME = new QName("http://schemas.datacontract.org/2004/07/WCF_Contract", "DecryptionCode");
+    private final static QName _MSGTextGuid_QNAME = new QName("http://schemas.datacontract.org/2004/07/WCF_Contract", "TextGuid");
+    private final static QName _MSGPropRand_QNAME = new QName("http://schemas.datacontract.org/2004/07/WCF_Contract", "PropRand");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.cobenga.fileprocessor.client.generated
@@ -294,21 +295,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/WCF_Contract", name = "DocumentGuid", scope = MSG.class)
-    public JAXBElement<String> createMSGDocumentGuid(String value) {
-        return new JAXBElement<String>(_MSGDocumentGuid_QNAME, String.class, MSG.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/WCF_Contract", name = "SecretInformation", scope = MSG.class)
-    public JAXBElement<String> createMSGSecretInformation(String value) {
-        return new JAXBElement<String>(_MSGSecretInformation_QNAME, String.class, MSG.class, value);
+    public JAXBElement<byte[]> createMSGSecretInformation(byte[] value) {
+        return new JAXBElement<byte[]>(_MSGSecretInformation_QNAME, byte[].class, MSG.class, ((byte[]) value));
     }
 
     /**
@@ -318,6 +310,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/WCF_Contract", name = "DecryptionCode", scope = MSG.class)
     public JAXBElement<String> createMSGDecryptionCode(String value) {
         return new JAXBElement<String>(_MSGDecryptionCode_QNAME, String.class, MSG.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/WCF_Contract", name = "TextGuid", scope = MSG.class)
+    public JAXBElement<String> createMSGTextGuid(String value) {
+        return new JAXBElement<String>(_MSGTextGuid_QNAME, String.class, MSG.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/WCF_Contract", name = "PropRand", scope = MSG.class)
+    public JAXBElement<String> createMSGPropRand(String value) {
+        return new JAXBElement<String>(_MSGPropRand_QNAME, String.class, MSG.class, value);
     }
 
 }

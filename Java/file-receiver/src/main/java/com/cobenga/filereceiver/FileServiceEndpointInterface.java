@@ -26,7 +26,7 @@ public interface FileServiceEndpointInterface {
             @WebParam(name = "fileName") String fileName,
             @WebParam(name = "FileInternalUUID") String fileUuid,
             @WebParam(name = "code") String code,
-            @WebParam(name = "decryptedText") String decryptedText,
+            @WebParam(name = "decryptedText") byte[] decryptedText,
             @WebParam(name = "userEmail") String userEmail
     );
 }

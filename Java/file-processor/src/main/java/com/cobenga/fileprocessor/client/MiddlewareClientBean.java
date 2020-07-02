@@ -25,9 +25,10 @@ public class MiddlewareClientBean implements MiddlewareClient {
     @Override
     public void notifyMiddlewareSecretInformationHasBeenFound(String secretInformation, String code, String fileUuid) {
         MSG message = new MSG();
-        message.setSecretInformation(factory.createMSGSecretInformation(secretInformation));
+        message.setSecretInformation(factory.createMSGSecretInformation(secretInformation.getBytes()));
         message.setDecryptionCode(factory.createMSGDecryptionCode(code));
-        message.setDocumentGuid(factory.createGuid(fileUuid));
+        message.setTextGuid(factory.createGuid(fileUuid));
+        message.setPropRand(factory.createMSGPropRand(fileUuid));
         serviceJavaReceiver.correctCodeFound(message);
     }
 }
