@@ -32,6 +32,7 @@ namespace Middleware.DAO
                     myUser.Username = dataReader.GetString(1);
                     myUser.Password = dataReader.GetString(2);
                     myUser.SaltPassword = dataReader.GetString(3);
+
                 }
                 connexion.Close();
 
