@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,11 +18,15 @@ namespace Middleware
 
         public bool Authentication(string username, string password, string tokenApp)
         {
+
             User user = userDAO.FindByUserName(username);
+
+            string saltedPassword = password + user.Salt;
+            string hashedPassword = MD5(saltedPassword);
 
             if (user != null)
             {
-                if (user.Password == password)
+                if (user.Password == hashedPassword)
                 {
                     return true;
                 }
@@ -32,6 +37,33 @@ namespace Middleware
         public TokenUser CreateTokenUser()
         {
             return new TokenUser();
+        }
+
+        public static string toHash(HashAlgorithm algo, string password)
+        {
+            // Compute hash from text parameter
+            algo.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+            // Get has value in array of bytes
+            var result = algo.Hash;
+
+            // Return as hexadecimal string
+            return string.Join(
+                string.Empty,
+                result.Select(x => x.ToString("x2")));
+        }
+
+
+        public static string MD5(string text)
+        {
+            var result = default(string);
+
+            using (var algo = new MD5CryptoServiceProvider())
+            {
+                result = toHash(algo, text);
+            }
+
+            return result;
         }
     }
 }

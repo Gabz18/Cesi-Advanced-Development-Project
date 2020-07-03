@@ -30,6 +30,7 @@ namespace Middleware
                     myUser.UserID = dataReader.GetInt32(0);
                     myUser.Username = dataReader.GetString(1);
                     myUser.Password = dataReader.GetString(2);
+                    myUser.Salt = dataReader.GetString(3);
                 }
                 connexion.Close();
 
