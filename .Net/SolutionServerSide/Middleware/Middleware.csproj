@@ -56,6 +56,7 @@
     <Compile Include="Decryptor.cs" />
     <Compile Include="DecryptorManager.cs" />
     <Compile Include="DecryptorManagerContainer.cs" />
+    <Compile Include="FileChecker.cs" />
     <Compile Include="Model\DecryptedFile.cs" />
     <Compile Include="ImplUserNameValidator.cs" />
     <Compile Include="DAO\IDecryptedFileDAO.cs" />

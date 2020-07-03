@@ -27,12 +27,7 @@ namespace Middleware
             sendMessageAccess.WaitOne();
 
             UTF8Encoding utf8 = new UTF8Encoding();
-            byte[] nameDocumentByte = utf8.GetBytes(nameDocument);
-            byte[] textGuidByte = utf8.GetBytes(textGUID);
-            byte[] codeByte = utf8.GetBytes(code);
             byte[] resultDecryptionByte = utf8.GetBytes(resultDecryption);
-            byte[] mailClientByte = utf8.GetBytes(mailClient);
-
 
             proxy.fileAnalysisProcessStart(nameDocument, textGUID, code, resultDecryptionByte, mailClient);
             Console.Write("j'envois");

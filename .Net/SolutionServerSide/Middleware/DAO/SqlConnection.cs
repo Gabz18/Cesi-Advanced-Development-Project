@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Middleware
+namespace Middleware.DAO
 {
     public class SqlConnectionHolder
     {

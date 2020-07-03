@@ -71,7 +71,7 @@ namespace Client
                 //myResetButton.IsEnabled = false;
                 //btnOpenFile.IsEnabled = false;
                 //decryptFileButton.IsEnabled = false;
-                ProgressBar.Visibility = Visibility.Visible;
+                //ProgressBar.Visibility = Visibility.Visible;
 
 
                 ////Partie simulation de travail 

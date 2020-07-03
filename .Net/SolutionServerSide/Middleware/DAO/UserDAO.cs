@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using Middleware.Model;
 
-namespace Middleware
+namespace Middleware.DAO
 {
     class UserDAO : IUserDAO
     {
@@ -30,6 +31,7 @@ namespace Middleware
                     myUser.UserID = dataReader.GetInt32(0);
                     myUser.Username = dataReader.GetString(1);
                     myUser.Password = dataReader.GetString(2);
+                    myUser.SaltPassword = dataReader.GetString(3);
                 }
                 connexion.Close();
 

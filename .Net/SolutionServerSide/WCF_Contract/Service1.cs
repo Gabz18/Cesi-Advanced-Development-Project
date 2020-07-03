@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Security.Policy;
 using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Middleware;
 //using WCF_Contract;
@@ -14,7 +15,7 @@ namespace WCF_Contract
 {
     
     [ServiceBehavior(InstanceContextMode= InstanceContextMode.PerSession,
-                 ConcurrencyMode = ConcurrencyMode.Single)]
+                 ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class Service1 : IService1, IDisposable
     {
         /*
@@ -33,10 +34,15 @@ namespace WCF_Contract
 
         DecryptorManagerContainer decryptorManagerContainer;
 
+        private Mutex fileCheckerAccess;
+
         public Service1()
         {
             //
             decryptorManagerContainer = DecryptorManagerContainer.Instance;
+
+            fileCheckerAccess = new Mutex();
+
             Console.WriteLine("Une nouvelle instance de service est créee");
         }
 
@@ -52,30 +58,46 @@ namespace WCF_Contract
             string operationVersion = msg.OperationVersion;
 
 
-            switch (msg.OperationName)
+            switch (operationName)
             {
                 case (DECRYPTION):
+
+                    string nameDocument = (string)data[0];
+                    string encryptedDocument = (string)data[1];
+
+                    Console.WriteLine("L'utilisateur {0} lance un nouveau processus de déchiffrement pour le fichier {1}\n", client, nameDocument);
 
                     /*
                      * Verify that the Session is still available
                      */
                     if(sessionTokenUser.Token == tokenUser)
                     {
+                        /*
+                         * Refresh the session token
+                         */
                         sessionTokenUser.TokenUserRefreshed();
 
-                        Thread DecryptionProcess = new Thread(() =>
+
+                        if (!FileChecker.Instance.VerifyDoc(nameDocument, encryptedDocument))
                         {
-                            DecryptorManager myDecryptorManager = new DecryptorManager((string)data[0], (string)data[1], client);
-                            decryptorManagerContainer.SetDecryptorManagerInDictionary(myDecryptorManager.TextGUID, myDecryptorManager);
+                            return createMessageSTG(DECRYPTION, null, "File can't be used", sessionTokenApp, sessionTokenUser.Token, appVersion, operationVersion, false);
+                        }
+                        else
+                        {
+                            Console.WriteLine("La demande de chiffrement pour le fichier {0} a été accepté\n", nameDocument);
 
-                            //myDecryptorManager.DecryptWithEachKey();
-                            myDecryptorManager.DecryptSingle("CU", (string)data[1]);
+                            Thread DecryptionProcess = new Thread(() =>
+                            {
+                                DecryptorManager myDecryptorManager = new DecryptorManager(nameDocument, encryptedDocument, client);
+                                decryptorManagerContainer.SetDecryptorManagerInDictionary(myDecryptorManager.TextGUID, myDecryptorManager);
 
-                        });
+                                myDecryptorManager.DecryptWithEachKey();
+                            });
 
-                        DecryptionProcess.Start();
+                            DecryptionProcess.Start();
 
-                        return createMessageSTG(DECRYPTION, null, "File loaded and decryption started", sessionTokenApp, sessionTokenUser.Token, appVersion, operationVersion, true);
+                            return createMessageSTG(DECRYPTION, null, "File loaded and decryption started", sessionTokenApp, sessionTokenUser.Token, appVersion, operationVersion, true);
+                        }
                     }
 
                     /*
@@ -97,7 +119,7 @@ namespace WCF_Contract
                         sessionTokenApp = tokenApp;
                         client = (string)data[0];
 
-                        Console.Write("Authentification réussie, le client {0} peut maintenant accèder à la session avec sa paire TokenUser/TokenApp: {1}/{2}", client, sessionTokenUser, sessionTokenApp);
+                        Console.Write("Authentification réussie, le client {0} peut maintenant accèder à la session avec sa paire TokenUser/TokenApp: {1}/{2}\n", client, sessionTokenUser.Token, sessionTokenApp);
 
                         return createMessageSTG(AUTHENTICATION, null, "Authentication success, TokenUser created", sessionTokenApp, sessionTokenUser.Token, appVersion, operationVersion, true);
                     }
@@ -107,17 +129,11 @@ namespace WCF_Contract
                      */
                     else
                     {
-                        Dispose();
                         return createMessageSTG(AUTHENTICATION, data, "User or Password Invalid", tokenApp, tokenUser, appVersion, operationVersion, false);
                     }
 
 
                 //case (GET_FILES):
-                   
-
-
-                //        return createMessageSTG();
-
 
                 default:
                     return createMessageSTG(operationName, data, "This operation doesn't exist",tokenApp, tokenUser, appVersion, operationVersion, false);
@@ -146,8 +162,7 @@ namespace WCF_Contract
                 sessionTokenUser.DeleteTokenUser();
             }
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("L'instance de client est fermée");
+            Console.WriteLine("L'instance de client est fermée\n");
         }
     }
 }

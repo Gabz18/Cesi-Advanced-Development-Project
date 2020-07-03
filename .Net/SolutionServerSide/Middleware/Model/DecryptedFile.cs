@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Middleware
+namespace Middleware.Model
 {
-    class DecryptedFile
+    class DecryptedFile : IFile
     {
         private int id;
         private string name;

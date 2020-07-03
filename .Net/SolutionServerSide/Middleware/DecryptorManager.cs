@@ -8,6 +8,9 @@ using System.ServiceModel;
 using System.Net.Http.Headers;
 using Middleware.ServiceReference1;
 using System.Linq.Expressions;
+using System.Timers;
+using Middleware.Model;
+using Middleware.DAO;
 
 namespace Middleware
 {
@@ -17,27 +20,17 @@ namespace Middleware
         private string encryptedText;
         private string client;
 
-        private IDecryptedFileDAO decryptedFileDAO;
-        private DecryptedFile decryptedFile;
-        private Sender sender;
-
         private List<string> possibleKeys;
         private string textGUID;
 
         private bool correctCodeFound = false;
+        private System.Timers.Timer waitingForJEEResponse;
 
         public DecryptorManager(string nameDocument, string encrytedDocument, string client)
         {
             this.nameDocument = nameDocument;
             this.encryptedText = encrytedDocument;
             this.client = client;
-
-            decryptedFileDAO = new DecryptedFileDAO();
-            sender = Sender.Instance;
-
-            decryptedFile = new DecryptedFile();
-            decryptedFile.Client = client;
-            decryptedFile.Name = nameDocument;
 
             textGUID = Guid.NewGuid().ToString();
             possibleKeys = this.GetPossibleKeys2(this.GetAlphabetCharacter());
@@ -96,13 +89,6 @@ namespace Middleware
             return combinations;
         }
 
-        public void DecryptSingle(string key, string encryptedText)
-        {
-            string decryptedTextResult = new Decryptor().applyXOR(key, encryptedText);
-            Console.WriteLine("Déchiffrement avec cette clé: {0} et ce Thread: {2}, voici le résultat: {1}", key, decryptedTextResult, Thread.CurrentThread.ManagedThreadId.ToString());
-            Send(key, decryptedTextResult);
-        }
-
         public void DecryptWithEachKey()
         {
             Console.WriteLine("Je suis entrain de traiter la demande pour ce texte chiffré {0} ayant pour Guid: {1}", encryptedText, textGUID);
@@ -124,13 +110,19 @@ namespace Middleware
                 
             });
 
-            // Attend deux minutes après la sortie du Parallel.ForEach
+            if (!correctCodeFound)
+            {
+                this.waitingForJEEResponse = CreateTimer();
+                this.waitingForJEEResponse.Enabled = true;
+            }
         }
 
-
+        /*
+         * Send to the Java EE Platform
+         */
         private void Send(string code, string resultDecryption)
         {
-            sender.SendDecryptedAttempt(nameDocument, textGUID, code, resultDecryption, client + "@viacesi.fr");
+            Sender.Instance.SendDecryptedAttempt(nameDocument, textGUID, code, resultDecryption, client + "@viacesi.fr");
         }
 
 
@@ -141,20 +133,60 @@ namespace Middleware
              */
             correctCodeFound = true;
 
+
+            /*
+             * Creates the Decrypted file and send it to the DB by using DAO
+             */
+            DecryptedFile decryptedFile = new DecryptedFile();
+            decryptedFile.Name = nameDocument;
+            decryptedFile.Client = client;
             decryptedFile.Code = code;
             decryptedFile.SecretInformation = secretInformation;
             decryptedFile.Plaintext = new Decryptor().applyXOR(code, encryptedText);
 
-            InsertResultInDB();
+            InsertResultInDB(decryptedFile);
         }
 
-        private void InsertResultInDB()
+        private void NoCorrectKeyFound()
         {
-            decryptedFileDAO.InsertDecryptedFile(decryptedFile);
+            NonDecryptedFile nonDecryptedFile = new NonDecryptedFile();
+            nonDecryptedFile.Name = nameDocument;
+            nonDecryptedFile.Client = client;
+            nonDecryptedFile.EncryptedText = encryptedText;
+
+            InsertResultInDB(nonDecryptedFile);
+        }
+
+        private void InsertResultInDB(IFile file)
+        {
+            if(file is DecryptedFile)
+            {
+                new DecryptedFileDAO().InsertDecryptedFile((DecryptedFile)file);
+            }
+            else
+            {
+                new NonDecryptedFileDAO().InsertDecryptedFile((NonDecryptedFile)file);
+            }
+
+            Dispose();
+        }
+
+        private System.Timers.Timer CreateTimer()
+        {
+            System.Timers.Timer timer = new System.Timers.Timer(10000);
+            timer.Elapsed += (Object source, ElapsedEventArgs e) =>
+            {
+                Console.WriteLine("Le délais de réponse est écoulé, la plateforme Java ne renverra aucun code");
+                waitingForJEEResponse.Stop();
+                waitingForJEEResponse.Dispose();
+                NoCorrectKeyFound();
+            };
+            return timer;
         }
 
         public void Dispose()
         {
+            Console.WriteLine("L'instance {0} DecryptorManager a finit son travail et se ferme", textGUID);
             DecryptorManagerContainer.Instance.RemoveDecryptorManagerFromDictionary(textGUID);
         }
           

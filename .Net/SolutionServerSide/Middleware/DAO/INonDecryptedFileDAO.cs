@@ -7,9 +7,9 @@ using Middleware.Model;
 
 namespace Middleware.DAO
 {
-    interface IDecryptedFileDAO
+    interface INonDecryptedFileDAO
     {
-        bool InsertDecryptedFile(DecryptedFile file);
-        List<DecryptedFile> FindByClient(string client);
+        bool InsertNonDecryptedFile(NonDecryptedFileDAO file);
+        List<NonDecryptedFileDAO> FindByClient(string client);
     }
 }

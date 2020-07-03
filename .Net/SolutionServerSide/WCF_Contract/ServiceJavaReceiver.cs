@@ -9,18 +9,15 @@ using System.Threading;
 
 namespace WCF_Contract
 {
-    // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom de classe "ServiceJavaReceiver" à la fois dans le code et le fichier de configuration.
+   
     public class ServiceJavaReceiver : IServiceJavaReceiver
     {
 
        public void correctCodeFound(MSG msg)
         {
-            MSG message = msg;
             string textGuid = msg.PropRand;
             string decryptionCode = msg.DecryptionCode;
-            UTF8Encoding utf8 = new UTF8Encoding();
-
-            string secretInformation = utf8.GetString(msg.SecretInformation);
+            string secretInformation = new UTF8Encoding().GetString(msg.SecretInformation);
 
             
 
@@ -33,8 +30,6 @@ namespace WCF_Contract
             });
 
             ResultFound.Start();
-
-            Console.WriteLine(msg.TextGuid);
 
             Console.WriteLine("Bon code trouvé pour {0}, secret info: {1} et code: {2}", textGuid, secretInformation, decryptionCode);
         }

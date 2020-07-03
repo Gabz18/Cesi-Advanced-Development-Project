@@ -21,16 +21,14 @@ namespace Middleware
         private void SetTimer()
         {
             tokenUserTimer = new Timer(30000);
-            tokenUserTimer.Elapsed += OnTimedEvent;
+            tokenUserTimer.Elapsed += (Object source, ElapsedEventArgs e) =>
+            {
+                Console.WriteLine("Le TokenUser {0} n'est plus valable", token);
+                token = null;
+                tokenUserTimer.Stop();
+                tokenUserTimer.Dispose();
+            };
             tokenUserTimer.Enabled = true;
-        }
-
-        private void OnTimedEvent(Object source, ElapsedEventArgs e)
-        {
-            Console.WriteLine("Le TokenUser {0} n'est plus valable", token);
-            token = null;
-            tokenUserTimer.Stop();
-            tokenUserTimer.Dispose();
         }
 
         private string CreateToken()
