@@ -1,0 +1,7 @@
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Middleware\bin\Debug\Middleware.dll
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Middleware\bin\Debug\Middleware.pdb
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Middleware\obj\Debug\Middleware.csproj.CoreCompileInputs.cache
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Middleware\obj\Debug\Middleware.dll
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Middleware\obj\Debug\Middleware.pdb
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Middleware\bin\Debug\Middleware.dll.config
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\Middleware\obj\Debug\Middleware.csprojAssemblyReference.cache

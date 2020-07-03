@@ -1,0 +1,7 @@
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerJava\bin\Debug\ServerJava.exe.config
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerJava\bin\Debug\ServerJava.exe
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerJava\bin\Debug\ServerJava.pdb
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerJava\obj\Debug\ServerJava.csprojAssemblyReference.cache
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerJava\obj\Debug\ServerJava.csproj.CoreCompileInputs.cache
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerJava\obj\Debug\ServerJava.exe
+C:\Users\Benjamin\Desktop\dev\Cesi-Advanced-Development-Project\.Net\SolutionServerSide\ServerJava\obj\Debug\ServerJava.pdb
