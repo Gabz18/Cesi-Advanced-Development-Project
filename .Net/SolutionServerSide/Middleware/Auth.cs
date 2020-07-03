@@ -41,7 +41,7 @@ namespace Middleware
             return new TokenUser();
         }
 
-        public static string toHash(HashAlgorithm algo, string password)
+        public string toHash(HashAlgorithm algo, string password)
         {
             // Compute hash from text parameter
             algo.ComputeHash(Encoding.UTF8.GetBytes(password));
@@ -56,7 +56,7 @@ namespace Middleware
         }
 
 
-        public static string MD5(string text)
+        public string MD5(string text)
         {
             var result = default(string);
 
